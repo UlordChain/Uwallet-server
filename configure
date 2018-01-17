@@ -1,0 +1,228 @@
+<<<<<<< HEAD
+#!/bin/bash
+set -e
+
+# check root
+if [ ! "$(id -u)" == "0" ]; then
+    echo "must be root to run install script"
+    exit 1
+fi
+
+# install requirements that pip needs
+#apt-get install libleveldb1 libleveldb-dev
+
+# source directory
+source_dir=$(cd "$(dirname "${BASH_SOURCE[0]}" )"; pwd)
+
+
+uwallet_config="/etc/uwallet.conf"
+function read_config()
+{
+    text=$1
+    echo `grep -e ^$text $uwallet_config |awk -F\= '{print $2}' | tail -n 1| tr -d ' '`
+}
+function write_config()
+{
+    sed -i -s "s#$1 =.*#$1 = $2#" $uwallet_config
+}
+
+# create config file
+if [ ! -f $uwallet_config ]; then
+    echo "Creating config file"
+    cp $source_dir"/uwallet.conf.sample" $uwallet_config
+fi
+
+
+# read username
+user=$(read_config "username")
+if ! [ "$user" ]; then
+    read -p "username for running daemon (default: uwallet) " -r
+    if [ $REPLY ]; then
+	user=$REPLY
+    else
+	user="uwallet"
+    fi
+    write_config "username" $user
+fi
+
+
+# create user
+if ! id -u $user; then
+    echo "adding user $user"
+    sudo adduser $user --disabled-password
+    echo "$user hard nofile 65536" >> /etc/security/limits.conf
+    echo "$user soft nofile 65536" >> /etc/security/limits.conf
+fi
+
+
+# read path from config
+default_path="/var/uwallet-server"
+path=$(read_config "path")
+if ! [ "$path" ]; then
+    read -p "Path for database (default: $default_path) " -r
+    if [ $REPLY ]; then
+	path=$REPLY
+    else
+	path=$default_path
+    fi
+    write_config "path" $default_path
+fi
+
+mkdir -p $path
+
+# read path from config
+default_logfile="/var/log/uwallet.log"
+logfile=$(read_config "logfile")
+if ! [ "$logfile" ]; then
+    read -p "Path of logfile (default: $default_logfile) " -r
+    if [ $REPLY ]; then
+	logfile=$REPLY
+    else
+	logfile=$default_logfile
+    fi
+    write_config "logfile" $default_logfile
+fi
+
+# set owner
+chown -R $user $path
+
+# create log file
+logfile=$(read_config "logfile")
+if ! [ -f $logfile ]; then
+    touch $logfile
+fi
+chown $user $logfile
+
+
+unetd_user=$(read_config "unetd_user")
+if ! [ "$unetd_user" ]; then
+    read -p "rpcuser (from your unet.conf file): " -r
+    write_config "unetd_user" $REPLY
+fi
+
+unetd_password=$(read_config "unetd_password")
+if ! [ "$unetd_password" ]; then
+    read -p "rpcpassword (from your unet.conf file): " -r
+    write_config "unetd_password" $REPLY
+fi
+
+
+# finish
+echo "Configuration written to $uwallet_config."
+echo "Please edit this file to finish the configuration."
+echo "If you have not done so, please run 'python setup.py install'"
+=======
+#!/bin/bash
+set -e
+
+# check root
+if [ ! "$(id -u)" == "0" ]; then
+    echo "must be root to run install script"
+    exit 1
+fi
+
+# install requirements that pip needs
+apt-get install libleveldb1v5 libleveldb-dev
+
+# source directory
+source_dir=$(cd "$(dirname "${BASH_SOURCE[0]}" )"; pwd)
+
+
+uwallet_config="/etc/uwallet.conf"
+function read_config()
+{
+    text=$1
+    echo `grep -e ^$text $uwallet_config |awk -F\= '{print $2}' | tail -n 1| tr -d ' '`
+}
+function write_config()
+{
+    sed -i -s "s#$1 =.*#$1 = $2#" $uwallet_config
+}
+
+# create config file
+if [ ! -f $uwallet_config ]; then
+    echo "Creating config file"
+    cp $source_dir"/uwallet.conf.sample" $uwallet_config
+fi
+
+
+# read username
+user=$(read_config "username")
+if ! [ "$user" ]; then
+    read -p "username for running daemon (default: uwallet) " -r
+    if [ $REPLY ]; then
+	user=$REPLY
+    else
+	user="uwallet"
+    fi
+    write_config "username" $user
+fi
+
+
+# create user
+if ! id -u $user; then
+    echo "adding user $user"
+    sudo adduser $user --disabled-password
+    echo "$user hard nofile 65536" >> /etc/security/limits.conf
+    echo "$user soft nofile 65536" >> /etc/security/limits.conf
+fi
+
+
+# read path from config
+default_path="/var/uwallet-server"
+path=$(read_config "path")
+if ! [ "$path" ]; then
+    read -p "Path for database (default: $default_path) " -r
+    if [ $REPLY ]; then
+	path=$REPLY
+    else
+	path=$default_path
+    fi
+    write_config "path" $default_path
+fi
+
+mkdir -p $path
+
+# read path from config
+default_logfile="/var/log/uwallet.log"
+logfile=$(read_config "logfile")
+if ! [ "$logfile" ]; then
+    read -p "Path of logfile (default: $default_logfile) " -r
+    if [ $REPLY ]; then
+	logfile=$REPLY
+    else
+	logfile=$default_logfile
+    fi
+    write_config "logfile" $default_logfile
+fi
+
+# set owner
+chown -R $user $path
+
+# create log file
+logfile=$(read_config "logfile")
+if ! [ -f $logfile ]; then
+    touch $logfile
+fi
+chown $user $logfile
+
+
+unetd_user=$(read_config "unetd_user")
+if ! [ "$unetd_user" ]; then
+    read -p "rpcuser (from your unet.conf file): " -r
+    write_config "unetd_user" $REPLY
+fi
+
+unetd_password=$(read_config "unetd_password")
+if ! [ "$unetd_password" ]; then
+    read -p "rpcpassword (from your unet.conf file): " -r
+    write_config "unetd_password" $REPLY
+fi
+
+
+# finish
+echo "Configuration written to $uwallet_config."
+echo "Please edit this file to finish the configuration."
+echo "If you have not done so, please run 'python setup.py install'"
+>>>>>>> 217104beed8b7501cc1455fe18da345c0f7b25a7
+echo "Then, run 'uwallet-server' to start the daemon"

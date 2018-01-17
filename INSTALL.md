@@ -1,0 +1,81 @@
+The following is a quick installation guide. Please see HOWTO.md for more
+detailed information on how to configure your server.
+
+
+TLDR:
+# sudo ./configure
+# sudo python ./setup.py install
+# uwallet-server start
+# uwallet-server stop
+
+
+1. Install and run unetd.
+----------------------------
+
+You will need to run unetd with the config option txindex=1. If you
+have not previously done so, you may need to reindex the unetd
+blockchain
+
+Note: you cannot use a pruning unetd.  A full bitcoin node is
+required in order to know for each address if it has been
+used. Pruning occurs only at the level of the Electrum database.
+
+
+2. Run the 'configure' script
+---------------------------
+You need to run the script as root:
+
+# sudo ./configure
+
+It will:
+ * create the configuration file in /etc/uwallet.conf
+ * create a user that will run the daemon
+ * optionally, download a fresh database from the Electrum Foundry.
+
+
+
+Note: The 'configure' script does not configure SSL and IRC. You will
+need to manually edit the configuration file in order to enable SSL on
+your server, and to be visible on IRC.
+
+
+3. Install the python package
+-----------------------------
+
+# sudo python setup.py install
+
+Note: You will need to redo this everytime you pull code from git.
+
+
+4. Using the server
+-------------------
+
+Use 'uwallet-server' to start and stop the server:
+
+# uwallet-server <start|stop|status|getinfo>
+
+The server will write a log file in its database path.
+
+
+5. Add uwallet-server to your system's services
+------------------------------------------------
+
+If your system supports it, you may add uwallet-server to the
+/etc/init.d directory. This will ensure that the server is started and
+stopped automatically, and that the database is closed safely whenever
+your machine is rebooted.
+
+# ln -s `which uwallet-server` /etc/init.d/uwallet-server
+# update-rc.d uwallet-server defaults
+
+
+
+6. Troubleshooting:
+-------------------
+
+ * if your server or lbrycrdd is killed because is uses too much
+   memory, configure lbrycrdd to limit the number of connections
+
+ * if you see "Too many open files" errors, you may need to increase
+   your user's File Descriptors limit. For this, see
+http://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files/
