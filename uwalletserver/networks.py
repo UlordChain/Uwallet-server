@@ -10,7 +10,7 @@ params = {
         'script_address': 5,
         'pubkey_address_prefix': 36,
         'script_address_prefix': 16, #204
-        'genesis_hash': '0002c1ef6d2dea451635ff2d7e4be5e660f8c78c91524a1df0d6e1e501661838',
+        'genesis_hash': '000002287d4bdfb69539d264be0eae5f08c8f990732b84cb6c0834bcee80de3a',
         'default_rpc_port': 9457  #9998
     },
     'unet_test': {
@@ -18,7 +18,7 @@ params = {
         'script_address': 5,
         'pubkey_address_prefix': 66,
         'script_address_prefix': 239,
-        'genesis_hash': '0002c1ef6d2dea451635ff2d7e4be5e660f8c78c91524a1df0d6e1e501661838',
+        'genesis_hash': '000002287d4bdfb69539d264be0eae5f08c8f990732b84cb6c0834bcee80de3a',
         'default_rpc_port': 9457  #9998
     }
 }

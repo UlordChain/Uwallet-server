@@ -20,8 +20,8 @@ from unetschema.uri import parse_unet_uri
 from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
-HEADER_SIZE = 1484 #140
-BLOCKS_PER_CHUNK = 576 #96
+HEADER_SIZE = 140 #1484
+BLOCKS_PER_CHUNK = 96 #576
 
 # This determines the max uris that can be requested
 # in a single batch command
@@ -193,8 +193,8 @@ class BlockchainProcessorBase(Processor):
             "claim_trie_root": b.get('nameclaimroot'),
             "timestamp": b.get('time'),
             "bits": int(b.get('bits'), 16),
-            "nonce": b.get('nonce'),
-            "solution": b.get('solution'),
+            "nonce": b.get('nonce')#,
+            #"solution": b.get('solution'),
         }
 
     def get_header(self, height):

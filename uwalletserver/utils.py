@@ -114,8 +114,8 @@ def header_to_string(res):
            + rev_hex(res.get('claim_trie_root')) \
            + int_to_hex(int(res.get('timestamp')), 4) \
            + int_to_hex(int(res.get('bits')), 4) \
-           + rev_hex(res.get('nonce')) \
-           + rev_hex(res.get('solution'))
+           + rev_hex(res.get('nonce')) #\
+           #+ rev_hex(res.get('solution'))
 
 #Fix block header loss validation issue -lqp
 def header_to_string_verify(res):
@@ -130,18 +130,18 @@ def header_to_string_verify(res):
         + int_to_hex(int(res.get('timestamp')), 4) \
         + int_to_hex(int(res.get('bits')), 4) \
         + rev_hex(res.get('nonce')) 
-    sol_len = len(res.get('solution')) / 2
-    str_len = ''
-    if sol_len < 253:
-        str_len = int_to_hex(sol_len, 1)
-    elif sol_len <= 0xfff:
-        str_len = int_to_hex(253, 1) + int_to_hex(sol_len, 2)
-    elif sol_len <= 0xFFFFFFFF:
-        str_len = int_to_hex(254, 1) + int_to_hex(sol_len, 4)
-    else:
-        str_len = int_to_hex(255, 1) + int_to_hex(sol_len, 8)
-    s += str_len
-    s += res.get('solution')
+    #sol_len = len(res.get('solution')) / 2
+    #str_len = ''
+    #if sol_len < 253:
+    #    str_len = int_to_hex(sol_len, 1)
+    #elif sol_len <= 0xfff:
+    #    str_len = int_to_hex(253, 1) + int_to_hex(sol_len, 2)
+    #elif sol_len <= 0xFFFFFFFF:
+    #    str_len = int_to_hex(254, 1) + int_to_hex(sol_len, 4)
+    #else:
+    #    str_len = int_to_hex(255, 1) + int_to_hex(sol_len, 8)
+    #s += str_len
+    #s += res.get('solution')
     return s
  
 def hex_to_int(s):
@@ -156,8 +156,8 @@ def header_from_string(s):
         'claim_trie_root': hash_encode(s[68:100]),
         'timestamp': hex_to_int(s[100:104]),
         'bits': hex_to_int(s[104:108]),
-        'nonce': hash_encode(s[108:140]),
-        'solution': hash_encode(s[140:1484]) #3 1487
+        'nonce': hash_encode(s[108:140])#,
+        #'solution': hash_encode(s[140:1484]) #3 1487
     }
     #'nonce': hex_to_int(s[108:140]),
 
