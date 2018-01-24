@@ -20,7 +20,7 @@ from unetschema.uri import parse_unet_uri
 from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
-HEADER_SIZE = 140 #1484
+HEADER_SIZE = 112 #1484
 BLOCKS_PER_CHUNK = 96 #576
 
 # This determines the max uris that can be requested

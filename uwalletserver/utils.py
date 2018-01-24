@@ -22,6 +22,7 @@ import logging.handlers
 import os
 import threading
 import time
+import cryptonite_hash
 from itertools import imap
 
 logger = logging.getLogger("uwalletserver")
@@ -82,8 +83,10 @@ def ripemd160(x):
 
 
 def Hash(x):
+    print "x=====",x
     if type(x) is unicode: x = x.encode('utf-8')
-    return sha256(sha256(x))
+    #return sha256(sha256(x))
+    return cryptonite_hash(x)
 
 
 def PoWHash(x):
@@ -156,7 +159,7 @@ def header_from_string(s):
         'claim_trie_root': hash_encode(s[68:100]),
         'timestamp': hex_to_int(s[100:104]),
         'bits': hex_to_int(s[104:108]),
-        'nonce': hash_encode(s[108:140])#,
+        'nonce': hash_encode(s[108:112])#,
         #'solution': hash_encode(s[140:1484]) #3 1487
     }
     #'nonce': hex_to_int(s[108:140]),
