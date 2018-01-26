@@ -22,7 +22,8 @@ import logging.handlers
 import os
 import threading
 import time
-import cryptonite_hash
+#from cryptonite_hash import cpu_has_aes_in_supported, cryptolite_hash, cryptonite_hash
+from cryptohello_hash import cpu_has_aes_in_supported,cryptohello_hash
 from itertools import imap
 
 logger = logging.getLogger("uwalletserver")
@@ -57,6 +58,7 @@ SCRIPT_ADDRESS = 5
 PUBKEY_ADDRESS_PREFIX = 36  #85
 SCRIPT_ADDRESS_PREFIX = 204 #122
 
+HAS_AES_NI = cpu_has_aes_in_supported()
 
 def rev_hex(s):
     return s.decode('hex')[::-1].encode('hex')
@@ -83,10 +85,10 @@ def ripemd160(x):
 
 
 def Hash(x):
-    print "x=====",x
     if type(x) is unicode: x = x.encode('utf-8')
-    #return sha256(sha256(x))
-    return cryptonite_hash(x)
+    #r = cryptonite_hash(x, HAS_AES_NI)
+    r = cryptohello_hash(x, HAS_AES_NI)
+    return r
 
 
 def PoWHash(x):
@@ -117,7 +119,7 @@ def header_to_string(res):
            + rev_hex(res.get('claim_trie_root')) \
            + int_to_hex(int(res.get('timestamp')), 4) \
            + int_to_hex(int(res.get('bits')), 4) \
-           + rev_hex(res.get('nonce')) #\
+           + int_to_hex(int(res.get('nonce')), 4) #\
            #+ rev_hex(res.get('solution'))
 
 #Fix block header loss validation issue -lqp
@@ -132,7 +134,7 @@ def header_to_string_verify(res):
         + rev_hex(res.get('claim_trie_root')) \
         + int_to_hex(int(res.get('timestamp')), 4) \
         + int_to_hex(int(res.get('bits')), 4) \
-        + rev_hex(res.get('nonce')) 
+        + int_to_hex(int(res.get('nonce')),4) 
     #sol_len = len(res.get('solution')) / 2
     #str_len = ''
     #if sol_len < 253:
@@ -145,6 +147,7 @@ def header_to_string_verify(res):
     #    str_len = int_to_hex(255, 1) + int_to_hex(sol_len, 8)
     #s += str_len
     #s += res.get('solution')
+    #print 'header2222====',s
     return s
  
 def hex_to_int(s):
@@ -159,7 +162,7 @@ def header_from_string(s):
         'claim_trie_root': hash_encode(s[68:100]),
         'timestamp': hex_to_int(s[100:104]),
         'bits': hex_to_int(s[104:108]),
-        'nonce': hash_encode(s[108:112])#,
+        'nonce': hex_to_int(s[108:112])#,
         #'solution': hash_encode(s[140:1484]) #3 1487
     }
     #'nonce': hex_to_int(s[108:140]),

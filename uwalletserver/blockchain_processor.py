@@ -198,8 +198,11 @@ class BlockchainProcessorBase(Processor):
         }
 
     def get_header(self, height):
+        #print 'heightttt',height
         block_hash = self.unetd('getblockhash', (height,))
+        #print 'blockhashhhh',block_hash
         b = self.unetd('getblock', (block_hash,))
+        #print 'getblockkk',b
         return self.block2header(b)
 
 
@@ -221,6 +224,10 @@ class BlockchainProcessorBase(Processor):
             print_log("catching up missing headers:", height, db_height)
 
         try:
+            h = self.get_header(50)
+            #print '==========='
+            self.hash_header(h)
+            #print '==========='
             while height < db_height:
                 height += 1
                 header = self.get_header(height) # headleght 140
@@ -232,7 +239,6 @@ class BlockchainProcessorBase(Processor):
                         height -= 2
                         prev_hash = self.hash_header(self.read_header(height))
                         continue
-
                 self.write_header(header, sync=False)
                 prev_hash = self.hash_header(header)
                 if (height % 1000) == 0:
@@ -245,8 +251,13 @@ class BlockchainProcessorBase(Processor):
 
     @staticmethod
     def hash_header(header):
+        #print 'struceHeader:',header
+        #print 'hexHeader:',header_to_string_verify(header)
+        #print 'byteHeader:',header_to_string_verify(header).decode('hex')
+        #print 'hashValue:',rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
         #return rev_hex(Hash(header_to_string(header).decode('hex')).encode('hex'))
         return rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
+        #return rev_hex(Hash(header_to_string_verify(header)).encode('hex')) 
 
     def read_header(self, block_height):
         if os.path.exists(self.headers_filename):

@@ -238,7 +238,7 @@ class Storage(object):
         # print stuff
         print_log("Database version %d." % db_version)
         print_log("Blockchain height", self.height)
-        print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
+        #print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
         print_log("Coins in database:", coins)
 
     # convert between unet addresses and 20 bytes keys used for storage.

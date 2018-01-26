@@ -85,7 +85,7 @@ class StratumJSONRPCDispatcher(SimpleXMLRPCServer.SimpleXMLRPCDispatcher):
         response = None
         try:
             request = jsonrpclib.loads(data)
-        except Exception, e:
+        except Exception,e:
             fault = Fault(-32700, 'Request %s invalid. (%s)' % (data, e))
             response = fault.response()
             return response
