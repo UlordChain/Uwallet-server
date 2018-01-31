@@ -3,6 +3,18 @@ from uwalletserver import __version__
 import os
 import sys
 
+import shutil
+import platform
+current_place = get_python_lib()
+
+if platform.system().startswith('Win'):
+    shutil.copyfile(os.path.join('uwalletserver', 'cryptohello_hash.pyd'),
+                    os.path.join(current_place, 'cryptohello_hash.pyd'))
+else:
+    shutil.copyfile(os.path.join('uwalletserver', 'cryptohello_hash.so'),
+                    os.path.join(current_place, 'cryptohello_hash.so'))
+
+
 requires = [
     'plyvel==0.9',
     'jsonrpclib',
