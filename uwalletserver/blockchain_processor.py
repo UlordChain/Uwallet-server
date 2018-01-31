@@ -224,10 +224,6 @@ class BlockchainProcessorBase(Processor):
             print_log("catching up missing headers:", height, db_height)
 
         try:
-            h = self.get_header(50)
-            #print '==========='
-            self.hash_header(h)
-            #print '==========='
             while height < db_height:
                 height += 1
                 header = self.get_header(height) # headleght 140

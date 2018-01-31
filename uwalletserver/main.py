@@ -94,7 +94,7 @@ def setup_network_settings(config):
     utils.PUBKEY_ADDRESS_PREFIX = int(params.get('pubkey_address_prefix'))
     utils.SCRIPT_ADDRESS_PREFIX = int(params.get('script_address_prefix'))
     storage.GENESIS_HASH = params.get('genesis_hash')
-    unetschema.BLOCKCHAIN_NAME = network_type
+    unetschema.BLOCKCHAIN_NAME = "unet_main"
 
 
 DEFAULT_DATA_DIR = os.path.join(os.path.expanduser("~/"), '.uwalletserver')
