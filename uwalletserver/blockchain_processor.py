@@ -12,7 +12,7 @@ from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 from uwalletserver import deserialize
 from uwalletserver.processor import Processor, print_log
 from uwalletserver.claims_storage import ClaimsStorage
-from uwalletserver.utils import logger, hash_decode, hash_encode, Hash, header_from_string
+from uwalletserver.utils import logger, hash_decode, hash_encode, Hash, header_from_string,Hash_Header
 from uwalletserver.utils import header_to_string, ProfiledThread, rev_hex, int_to_hex, PoWHash
 from uwalletserver.utils import header_to_string_verify
 
@@ -252,7 +252,7 @@ class BlockchainProcessorBase(Processor):
         #print 'byteHeader:',header_to_string_verify(header).decode('hex')
         #print 'hashValue:',rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
         #return rev_hex(Hash(header_to_string(header).decode('hex')).encode('hex'))
-        return rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
+        return rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
         #return rev_hex(Hash(header_to_string_verify(header)).encode('hex')) 
 
     def read_header(self, block_height):

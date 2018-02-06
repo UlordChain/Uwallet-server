@@ -22,7 +22,7 @@ from uwalletserver import deserialize
 
 # increase this when database needs to be updated
 global GENESIS_HASH
-GENESIS_HASH = '000002287d4bdfb69539d264be0eae5f08c8f990732b84cb6c0834bcee80de3a'
+GENESIS_HASH = '00000a98aa88364a5105f3d831368f823e14291a9cd2aba50d6eb5a416b97630'
 DB_VERSION = 5
 KEYLENGTH = 56  # 20 + 32 + 4
 
@@ -238,7 +238,7 @@ class Storage(object):
         # print stuff
         print_log("Database version %d." % db_version)
         print_log("Blockchain height", self.height)
-        #print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
+        print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
         print_log("Coins in database:", coins)
 
     # convert between unet addresses and 20 bytes keys used for storage.

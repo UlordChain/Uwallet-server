@@ -15,6 +15,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+import os
+import sys
+sys.path.append(os.path.realpath('.'))
 
 import hashlib
 import logging
@@ -84,10 +87,15 @@ def ripemd160(x):
     return h.digest()
 
 
-def Hash(x):
+def Hash_Header(x):
     if type(x) is unicode: x = x.encode('utf-8')
     #r = cryptonite_hash(x, HAS_AES_NI)
     r = cryptohello_hash(x, HAS_AES_NI)
+    return r
+
+def Hash(x):
+    if type(x) is unicode: x = x.encode('utf-8')
+    return sha256(sha256(x))
     return r
 
 
