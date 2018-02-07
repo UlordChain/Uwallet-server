@@ -41,7 +41,6 @@ setup(
     author="QiPing Liu",
     author_email="798013715@qq.com",
     license="GNU Affero GPLv3",
-    url="http://192.168.14.240:3000/liuqiping/uwallet-server/",
     long_description="""Server for the Electrum Lightweight UC Wallet"""
 )
  

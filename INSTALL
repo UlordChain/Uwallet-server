@@ -22,7 +22,7 @@ used. Pruning occurs only at the level of the Electrum database.
 
 
 2. Run the 'configure' script
----------------------------
+-------------------------------
 You need to run the script as root:
 
 # sudo ./configure
