@@ -23,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="stratum_tcp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/uwalletserver/stratum_tcp.py">
+      <file leaf-file-name="networks.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uwalletserver/networks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.24" vertical-offset="763" max-vertical-offset="6118">
-              <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+            <state vertical-scroll-proportion="-7.6" vertical-offset="0" max-vertical-offset="570">
+              <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="networks.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/uwalletserver/networks.py">
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/uwalletserver/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.2" vertical-offset="0" max-vertical-offset="570">
-              <caret line="20" column="89" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="89" />
+            <state vertical-scroll-proportion="0.6100324" vertical-offset="915" max-vertical-offset="6327">
+              <caret line="69" column="28" selection-start-line="69" selection-start-column="28" selection-end-line="69" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -46,28 +46,88 @@
       <file leaf-file-name="blockchain_processor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uwalletserver/blockchain_processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-45.0" vertical-offset="7862" max-vertical-offset="22002">
-              <caret line="493" column="21" selection-start-line="493" selection-start-column="21" selection-end-line="493" selection-end-column="21" />
-              <folding />
+            <state vertical-scroll-proportion="-20.8" vertical-offset="2007" max-vertical-offset="4997">
+              <caret line="615" column="70" selection-start-line="615" selection-start-column="70" selection-end-line="615" selection-end-column="70" />
+              <folding>
+                <element signature="e#985#1128#0" expanded="false" />
+                <element signature="e#1011#1108#0" expanded="false" />
+                <element signature="e#1176#1220#0" expanded="false" />
+                <element signature="e#1313#3255#0" expanded="false" />
+                <element signature="e#3293#3890#0" expanded="false" />
+                <element signature="e#3924#3951#0" expanded="false" />
+                <element signature="e#3995#5541#0" expanded="false" />
+                <element signature="e#5580#5729#0" expanded="false" />
+                <element signature="e#5777#6932#0" expanded="false" />
+                <element signature="e#6985#7417#0" expanded="false" />
+                <element signature="e#7461#7702#0" expanded="false" />
+                <element signature="e#7752#9292#0" expanded="false" />
+                <element signature="e#9349#9875#0" expanded="false" />
+                <element signature="e#9926#10220#0" expanded="false" />
+                <element signature="e#10263#10460#0" expanded="false" />
+                <element signature="e#10517#10962#0" expanded="false" />
+                <element signature="e#10998#11132#0" expanded="false" />
+                <element signature="e#11171#11393#0" expanded="false" />
+                <element signature="e#11432#11726#0" expanded="false" />
+                <element signature="e#11781#12206#0" expanded="false" />
+                <element signature="e#12267#12980#0" expanded="false" />
+                <element signature="e#13035#13255#0" expanded="false" />
+                <element signature="e#13308#13453#0" expanded="false" />
+                <element signature="e#13513#13882#0" expanded="false" />
+                <element signature="e#13947#15297#0" expanded="false" />
+                <element signature="e#15359#15995#0" expanded="false" />
+                <element signature="e#16082#17762#0" expanded="false" />
+                <element signature="e#17817#18676#0" expanded="false" />
+                <element signature="e#18726#20753#0" expanded="false" />
+                <element signature="e#20800#21179#0" expanded="false" />
+                <element signature="e#23880#27462#0" expanded="false" />
+                <element signature="e#27513#27954#0" expanded="false" />
+                <element signature="e#27985#28124#0" expanded="false" />
+                <element signature="e#28164#29441#0" expanded="false" />
+                <element signature="e#29504#30183#0" expanded="false" />
+                <element signature="e#30248#31059#0" expanded="false" />
+                <element signature="e#31105#31477#0" expanded="false" />
+                <element signature="e#31537#31729#0" expanded="false" />
+                <element signature="e#31890#31916#0" expanded="false" />
+                <element signature="e#32008#32026#0" expanded="false" />
+                <element signature="e#32145#32219#0" expanded="false" />
+                <element signature="e#32403#32478#0" expanded="false" />
+                <element signature="e#32583#32658#0" expanded="false" />
+                <element signature="e#32763#32965#0" expanded="false" />
+                <element signature="e#33066#33135#0" expanded="false" />
+                <element signature="e#33241#33312#0" expanded="false" />
+                <element signature="e#33413#33553#0" expanded="false" />
+                <element signature="e#33669#33817#0" expanded="false" />
+                <element signature="e#33930#34074#0" expanded="false" />
+                <element signature="e#34191#34921#0" expanded="false" />
+                <element signature="e#35058#35169#0" expanded="false" />
+                <element signature="e#35279#35442#0" expanded="false" />
+                <element signature="e#35528#35591#0" expanded="false" />
+                <element signature="e#35666#35686#0" expanded="false" />
+                <element signature="e#35803#37257#0" expanded="false" />
+                <element signature="e#37367#37730#0" expanded="false" />
+                <element signature="e#37846#38473#0" expanded="false" />
+                <element signature="e#38567#38648#0" expanded="false" />
+                <element signature="e#38732#38765#0" expanded="false" />
+                <element signature="e#38877#39002#0" expanded="false" />
+                <element signature="e#39118#39387#0" expanded="false" />
+                <element signature="e#39510#39695#0" expanded="false" />
+                <element signature="e#39813#40122#0" expanded="false" />
+                <element signature="e#40254#40462#0" expanded="false" />
+                <element signature="e#40601#40889#0" expanded="false" />
+                <element signature="e#40972#41267#0" expanded="false" />
+                <element signature="e#41016#41194#0" expanded="false" />
+                <element signature="e#41393#45633#0" expanded="false" />
+                <element signature="e#45769#46032#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <file leaf-file-name="bwallet.conf.sample" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bwallet.conf.sample">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="190">
-              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1732419" vertical-offset="0" max-vertical-offset="855">
-              <caret line="42" column="31" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="817">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -76,8 +136,18 @@
       <file leaf-file-name="storage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uwalletserver/storage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.16" vertical-offset="7752" max-vertical-offset="12616">
-              <caret line="440" column="46" selection-start-line="440" selection-start-column="46" selection-end-line="440" selection-end-column="46" />
+            <state vertical-scroll-proportion="-13.68" vertical-offset="437" max-vertical-offset="12616">
+              <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="configure" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configure">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2261">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -86,7 +156,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uwalletserver/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.2" vertical-offset="6561" max-vertical-offset="7372">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1197" max-vertical-offset="7372">
               <caret line="364" column="49" selection-start-line="364" selection-start-column="49" selection-end-line="364" selection-end-column="49" />
               <folding>
                 <element signature="e#728#743#0" expanded="true" />
@@ -95,13 +165,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server_processor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/uwalletserver/server_processor.py">
+      <file leaf-file-name="deserialize.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uwalletserver/deserialize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="9.12" vertical-offset="228" max-vertical-offset="874">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1881" max-vertical-offset="8797">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="claims_storage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uwalletserver/claims_storage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3363" max-vertical-offset="8664">
+              <caret line="231" column="35" selection-start-line="231" selection-start-column="35" selection-end-line="231" selection-end-column="35" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#108#121#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,21 +190,9 @@
       <file leaf-file-name="INSTALL" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/INSTALL">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="1653">
+            <state vertical-scroll-proportion="0.0" vertical-offset="437" max-vertical-offset="1653">
               <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="processor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/uwalletserver/processor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-133.0" vertical-offset="171" max-vertical-offset="5320">
-              <caret line="184" column="33" selection-start-line="184" selection-start-column="33" selection-end-line="184" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -140,15 +208,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/uwalletserver/storage.py" />
-        <option value="$PROJECT_DIR$/uwalletserver/blockchain_processor.py" />
-        <option value="$PROJECT_DIR$/uwalletserver/utils.py" />
         <option value="$PROJECT_DIR$/uwalletserver/processor.py" />
-        <option value="$PROJECT_DIR$/uwalletserver/networks.py" />
         <option value="$PROJECT_DIR$/uwalletserver/main.py" />
         <option value="$PROJECT_DIR$/INSTALL" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/uwalletserver/storage.py" />
+        <option value="$PROJECT_DIR$/uwalletserver/blockchain_processor.py" />
+        <option value="$PROJECT_DIR$/uwalletserver/networks.py" />
+        <option value="$PROJECT_DIR$/uwalletserver/utils.py" />
       </list>
     </option>
   </component>
@@ -158,9 +226,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1046" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -185,7 +254,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -220,6 +288,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -452,15 +521,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1046" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29029125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15572916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30703625" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2903907" sideWeight="0.49166667" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2903907" sideWeight="0.5083333" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -473,7 +543,6 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905984" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -511,30 +580,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/uwalletserver/claims_storage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8474">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/server_processor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="874">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uwalletserver/processor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5320">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -542,7 +591,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="6118">
           <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -574,7 +622,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="7030">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -592,9 +639,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8892">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -609,9 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="874">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -619,9 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5320">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -629,7 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="6118">
           <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -661,7 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="7030">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -679,9 +716,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8892">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -696,9 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="874">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -706,9 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5320">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -716,7 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="6213">
           <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -755,7 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="6213">
           <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -797,98 +824,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/claims_storage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8474">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/deserialize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8892">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/stratum_http.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="7030">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6099">
-          <caret line="57" column="27" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="620">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.516129" vertical-offset="171" max-vertical-offset="12920">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kill_session">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="620">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="190">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.48" vertical-offset="228" max-vertical-offset="855">
+          <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uwalletserver/stratum_http.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="20.52" vertical-offset="513" max-vertical-offset="7030">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uwalletserver/stratum_tcp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.24" vertical-offset="763" max-vertical-offset="6118">
+        <state vertical-scroll-proportion="-38.76" vertical-offset="0" max-vertical-offset="6118">
           <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/main.py">
+    <entry file="file://$PROJECT_DIR$/uwalletserver/server_processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.2" vertical-offset="6561" max-vertical-offset="7372">
-          <caret line="364" column="49" selection-start-line="364" selection-start-column="49" selection-end-line="364" selection-end-column="49" />
-          <folding>
-            <element signature="e#728#743#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="874">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uwalletserver/processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-133.0" vertical-offset="171" max-vertical-offset="5320">
-          <caret line="184" column="33" selection-start-line="184" selection-start-column="33" selection-end-line="184" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-115.52" vertical-offset="0" max-vertical-offset="5320">
+          <caret line="152" column="31" selection-start-line="152" selection-start-column="31" selection-end-line="152" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/storage.py">
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.16" vertical-offset="7752" max-vertical-offset="12616">
-          <caret line="440" column="46" selection-start-line="440" selection-start-column="46" selection-end-line="440" selection-end-column="46" />
+        <state vertical-scroll-proportion="34.935482" vertical-offset="1083" max-vertical-offset="12920">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bwallet.conf.sample">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="817">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configure">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2261">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -901,44 +914,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/server_processor.py">
+    <entry file="file://$PROJECT_DIR$/uwalletserver/deserialize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.12" vertical-offset="228" max-vertical-offset="874">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1881" max-vertical-offset="8797">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uwalletserver/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1197" max-vertical-offset="7372">
+          <caret line="364" column="49" selection-start-line="364" selection-start-column="49" selection-end-line="364" selection-end-column="49" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#728#743#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uwalletserver/networks.py">
+    <entry file="file://$PROJECT_DIR$/uwalletserver/claims_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.2" vertical-offset="0" max-vertical-offset="570">
-          <caret line="20" column="89" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="89" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3363" max-vertical-offset="8664">
+          <caret line="231" column="35" selection-start-line="231" selection-start-column="35" selection-end-line="231" selection-end-column="35" />
+          <folding>
+            <element signature="e#108#121#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uwalletserver/storage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.68" vertical-offset="437" max-vertical-offset="12616">
+          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uwalletserver/blockchain_processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-45.0" vertical-offset="7862" max-vertical-offset="22002">
-          <caret line="493" column="21" selection-start-line="493" selection-start-column="21" selection-end-line="493" selection-end-column="21" />
+        <state vertical-scroll-proportion="-20.8" vertical-offset="2007" max-vertical-offset="4997">
+          <caret line="615" column="70" selection-start-line="615" selection-start-column="70" selection-end-line="615" selection-end-column="70" />
+          <folding>
+            <element signature="e#985#1128#0" expanded="false" />
+            <element signature="e#1011#1108#0" expanded="false" />
+            <element signature="e#1176#1220#0" expanded="false" />
+            <element signature="e#1313#3255#0" expanded="false" />
+            <element signature="e#3293#3890#0" expanded="false" />
+            <element signature="e#3924#3951#0" expanded="false" />
+            <element signature="e#3995#5541#0" expanded="false" />
+            <element signature="e#5580#5729#0" expanded="false" />
+            <element signature="e#5777#6932#0" expanded="false" />
+            <element signature="e#6985#7417#0" expanded="false" />
+            <element signature="e#7461#7702#0" expanded="false" />
+            <element signature="e#7752#9292#0" expanded="false" />
+            <element signature="e#9349#9875#0" expanded="false" />
+            <element signature="e#9926#10220#0" expanded="false" />
+            <element signature="e#10263#10460#0" expanded="false" />
+            <element signature="e#10517#10962#0" expanded="false" />
+            <element signature="e#10998#11132#0" expanded="false" />
+            <element signature="e#11171#11393#0" expanded="false" />
+            <element signature="e#11432#11726#0" expanded="false" />
+            <element signature="e#11781#12206#0" expanded="false" />
+            <element signature="e#12267#12980#0" expanded="false" />
+            <element signature="e#13035#13255#0" expanded="false" />
+            <element signature="e#13308#13453#0" expanded="false" />
+            <element signature="e#13513#13882#0" expanded="false" />
+            <element signature="e#13947#15297#0" expanded="false" />
+            <element signature="e#15359#15995#0" expanded="false" />
+            <element signature="e#16082#17762#0" expanded="false" />
+            <element signature="e#17817#18676#0" expanded="false" />
+            <element signature="e#18726#20753#0" expanded="false" />
+            <element signature="e#20800#21179#0" expanded="false" />
+            <element signature="e#23880#27462#0" expanded="false" />
+            <element signature="e#27513#27954#0" expanded="false" />
+            <element signature="e#27985#28124#0" expanded="false" />
+            <element signature="e#28164#29441#0" expanded="false" />
+            <element signature="e#29504#30183#0" expanded="false" />
+            <element signature="e#30248#31059#0" expanded="false" />
+            <element signature="e#31105#31477#0" expanded="false" />
+            <element signature="e#31537#31729#0" expanded="false" />
+            <element signature="e#31890#31916#0" expanded="false" />
+            <element signature="e#32008#32026#0" expanded="false" />
+            <element signature="e#32145#32219#0" expanded="false" />
+            <element signature="e#32403#32478#0" expanded="false" />
+            <element signature="e#32583#32658#0" expanded="false" />
+            <element signature="e#32763#32965#0" expanded="false" />
+            <element signature="e#33066#33135#0" expanded="false" />
+            <element signature="e#33241#33312#0" expanded="false" />
+            <element signature="e#33413#33553#0" expanded="false" />
+            <element signature="e#33669#33817#0" expanded="false" />
+            <element signature="e#33930#34074#0" expanded="false" />
+            <element signature="e#34191#34921#0" expanded="false" />
+            <element signature="e#35058#35169#0" expanded="false" />
+            <element signature="e#35279#35442#0" expanded="false" />
+            <element signature="e#35528#35591#0" expanded="false" />
+            <element signature="e#35666#35686#0" expanded="false" />
+            <element signature="e#35803#37257#0" expanded="false" />
+            <element signature="e#37367#37730#0" expanded="false" />
+            <element signature="e#37846#38473#0" expanded="false" />
+            <element signature="e#38567#38648#0" expanded="false" />
+            <element signature="e#38732#38765#0" expanded="false" />
+            <element signature="e#38877#39002#0" expanded="false" />
+            <element signature="e#39118#39387#0" expanded="false" />
+            <element signature="e#39510#39695#0" expanded="false" />
+            <element signature="e#39813#40122#0" expanded="false" />
+            <element signature="e#40254#40462#0" expanded="false" />
+            <element signature="e#40601#40889#0" expanded="false" />
+            <element signature="e#40972#41267#0" expanded="false" />
+            <element signature="e#41016#41194#0" expanded="false" />
+            <element signature="e#41393#45633#0" expanded="false" />
+            <element signature="e#45769#46032#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uwalletserver/networks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.6" vertical-offset="0" max-vertical-offset="570">
+          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
+    <entry file="file://$PROJECT_DIR$/uwalletserver/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="190">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1732419" vertical-offset="0" max-vertical-offset="855">
-          <caret line="42" column="31" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.6100324" vertical-offset="915" max-vertical-offset="6327">
+          <caret line="69" column="28" selection-start-line="69" selection-start-column="28" selection-end-line="69" selection-end-column="28" />
           <folding />
         </state>
       </provider>
