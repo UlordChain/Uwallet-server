@@ -16,8 +16,8 @@ params = {
     'unet_test': {
         'pubkey_address': 0,
         'script_address': 5,
-        'pubkey_address_prefix': 66,
-        'script_address_prefix': 239,
+        'pubkey_address_prefix': 130,
+        'script_address_prefix': 125,
         'genesis_hash': '000009c278dda2285ff7d1595d919b2ae1f3728306409f50e374ea313391db8f',
         'default_rpc_port': 19889  #9998
     }
