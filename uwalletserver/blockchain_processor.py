@@ -20,7 +20,7 @@ from unetschema.uri import parse_unet_uri
 from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
-HEADER_SIZE = 112 #1484
+HEADER_SIZE = 140 #1484
 BLOCKS_PER_CHUNK = 96 #576
 
 # This determines the max uris that can be requested
@@ -227,6 +227,7 @@ class BlockchainProcessorBase(Processor):
             while height < db_height:
                 height += 1
                 header = self.get_header(height) # headleght 140
+                print header
                 if height > 1:
                     if prev_hash != header.get('prev_block_hash'):
                         # The prev_hash block is orphaned, go back

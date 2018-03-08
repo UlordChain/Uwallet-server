@@ -103,7 +103,7 @@ class ClaimsStorage(Storage):
     def get_undo_claim_info(self, height):
         s = self.db_undo_claim.get("undo_info_%d" % height)
         if s is None:
-            print_log('no undo info for {}'.format(height))
+            print_log('claim no undo info for {}'.format(height))
             return None
         return pickle.loads(s)
 

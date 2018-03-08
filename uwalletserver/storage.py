@@ -22,7 +22,7 @@ from uwalletserver import deserialize
 
 # increase this when database needs to be updated
 global GENESIS_HASH
-GENESIS_HASH = '000009c278dda2285ff7d1595d919b2ae1f3728306409f50e374ea313391db8f'
+GENESIS_HASH = '001cd3928acb4d9785b7975a0ec948653cc5e4d233cdd5e6eedae11af015a34a'
 DB_VERSION = 5
 KEYLENGTH = 56  # 20 + 32 + 4
 
@@ -328,7 +328,7 @@ class Storage(object):
     def get_undo_info(self, height):
         s = self.db_undo.get("undo_info_%d" % height)
         if s is None:
-            print_log("no undo info for ", height)
+            print_log("storage no undo info for ", height)
             return None
         return pickle.loads(s)
 

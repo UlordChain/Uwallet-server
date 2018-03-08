@@ -60,6 +60,7 @@ PUBKEY_ADDRESS = 0
 SCRIPT_ADDRESS = 5
 PUBKEY_ADDRESS_PREFIX = 130  #85
 SCRIPT_ADDRESS_PREFIX = 125 #122
+ 
 
 HAS_AES_NI = cpu_has_aes_in_supported()
 
@@ -127,7 +128,7 @@ def header_to_string(res):
            + rev_hex(res.get('claim_trie_root')) \
            + int_to_hex(int(res.get('timestamp')), 4) \
            + int_to_hex(int(res.get('bits')), 4) \
-           + int_to_hex(int(res.get('nonce')), 4) #\
+           + rev_hex(res.get('nonce')) #\
            #+ rev_hex(res.get('solution'))
 
 #Fix block header loss validation issue -lqp
@@ -142,7 +143,7 @@ def header_to_string_verify(res):
         + rev_hex(res.get('claim_trie_root')) \
         + int_to_hex(int(res.get('timestamp')), 4) \
         + int_to_hex(int(res.get('bits')), 4) \
-        + int_to_hex(int(res.get('nonce')),4) 
+        + rev_hex(res.get('nonce')) 
     #sol_len = len(res.get('solution')) / 2
     #str_len = ''
     #if sol_len < 253:
@@ -170,7 +171,7 @@ def header_from_string(s):
         'claim_trie_root': hash_encode(s[68:100]),
         'timestamp': hex_to_int(s[100:104]),
         'bits': hex_to_int(s[104:108]),
-        'nonce': hex_to_int(s[108:112])#,
+        'nonce': hash_encode(s[108:140])#,
         #'solution': hash_encode(s[140:1484]) #3 1487
     }
     #'nonce': hex_to_int(s[108:140]),
