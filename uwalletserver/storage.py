@@ -241,7 +241,7 @@ class Storage(object):
         print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
         print_log("Coins in database:", coins)
 
-    # convert between unet addresses and 20 bytes keys used for storage.
+    # convert between ulord addresses and 20 bytes keys used for storage.
     @staticmethod
     def address_to_key(addr):
         return bc_address_to_hash_160(addr)
@@ -281,7 +281,7 @@ class Storage(object):
     def listunspent(self, addr):
         key = self.address_to_key(addr)
         if key is None:
-            raise BaseException('Invalid unet address', addr)
+            raise BaseException('Invalid ulord address', addr)
         out = []
         with self.db_utxo.lock:
             for k, v in self.db_utxo.db.iterator(start=key):

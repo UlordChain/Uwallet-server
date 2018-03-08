@@ -47,35 +47,35 @@ if os.getuid() == 0:
     sys.exit()
 
 
-def parse_unetd(conf_lines):
+def parse_ulordd(conf_lines):
     for line in conf_lines:
         if line.startswith("rpcuser="):
-            yield "unetd_user", line[8:].rstrip('\n')
+            yield "ulordd_user", line[8:].rstrip('\n')
         elif line.startswith("rpcpassword="):
-            yield "unetd_password", line[12:].rstrip('\n')
+            yield "ulordd_password", line[12:].rstrip('\n')
         elif line.startswith("rpcport="):
-            yield "unetd_port", line[8:].rstrip('\n')
+            yield "ulordd_port", line[8:].rstrip('\n')
 
 
-def load_unetd_connection_info(config, wallet_conf):
+def load_ulordd_connection_info(config, wallet_conf):
     type = config.get('network', 'type')
     params = networks.params.get(type)
 
     settings = {
-        "unetd_user": "rpcuser",
-        "unetd_password": "rpcpassword",
-        "unetd_port": str(params.get('default_rpc_port')),
-        "unetd_host": "localhost"
+        "ulordd_user": "rpcuser",
+        "ulordd_password": "rpcpassword",
+        "ulordd_port": str(params.get('default_rpc_port')),
+        "ulordd_host": "localhost"
     }
     with open(wallet_conf, "r") as conf:
         conf_lines = conf.readlines()
-    unetd_settings = {}
-    for k, v in parse_unetd(conf_lines):
-        unetd_settings.update({k: v})
-    settings.update(unetd_settings)
-    config.add_section('unetd')
+    ulordd_settings = {}
+    for k, v in parse_ulordd(conf_lines):
+        ulordd_settings.update({k: v})
+    settings.update(ulordd_settings)
+    config.add_section('ulordd')
     for k, v in settings.iteritems():
-        config.set('unetd', k, v)
+        config.set('ulordd', k, v)
 
 #bitcoin#
 def attempt_read_config(config, filename):
@@ -94,7 +94,7 @@ def setup_network_settings(config):
     utils.PUBKEY_ADDRESS_PREFIX = int(params.get('pubkey_address_prefix'))
     utils.SCRIPT_ADDRESS_PREFIX = int(params.get('script_address_prefix'))
     storage.GENESIS_HASH = params.get('genesis_hash')
-    unetschema.BLOCKCHAIN_NAME = "unet_main"
+    unetschema.BLOCKCHAIN_NAME = "ulord_main"
 
 
 DEFAULT_DATA_DIR = os.path.join(os.path.expanduser("~/"), '.uwalletserver')
@@ -142,22 +142,22 @@ def create_config(filename=None):
 
     # set network parameters
     config.add_section('network')
-    config.set('network', 'type', 'unet_main')
+    config.set('network', 'type', 'ulord_main')
 
     #darwin is
     if sys.platform == "darwin":
-        default_unetd_dir = os.path.join(os.path.expanduser("~/"), "Library", "Application Support", "unetcore")
+        default_ulordd_dir = os.path.join(os.path.expanduser("~/"), "Library", "Application Support", "ulordcore")
     else:
-        default_unetd_dir = os.path.join(os.path.expanduser("~/"), ".unetcore")
+        default_ulordd_dir = os.path.join(os.path.expanduser("~/"), ".ulordcore")
 
-    unetd_conf = os.path.join(default_unetd_dir, "unet.conf")
-    if os.path.isfile(unetd_conf):
-        print_log("loading unetd info")
-        load_unetd_connection_info(config, unetd_conf)
-        found_unetd = True
+    ulordd_conf = os.path.join(default_ulordd_dir, "ulord.conf")
+    if os.path.isfile(ulordd_conf):
+        print_log("loading ulordd info")
+        load_ulordd_connection_info(config, ulordd_conf)
+        found_ulordd = True
     else:
-        print_log("no config for unetd found (%s)" % unetd_conf)
-        found_unetd = False
+        print_log("no config for ulordd found (%s)" % ulordd_conf)
+        found_ulordd = False
 
     # try to find the config file in the default paths
     if not filename:
@@ -171,8 +171,8 @@ def create_config(filename=None):
 
     if not os.path.isfile(filename):
         print 'could not find uwallet configuration file "%s"' % filename
-        if not found_unetd:
-            print "could not find unetd configutation file"
+        if not found_ulordd:
+            print "could not find ulordd configutation file"
             sys.exit(1)
 
     attempt_read_config(config, filename)
