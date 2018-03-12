@@ -20,7 +20,7 @@ from unetschema.uri import parse_unet_uri
 from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
-HEADER_SIZE = 112 #1484
+HEADER_SIZE = 140 #1484
 BLOCKS_PER_CHUNK = 96 #576
 
 # This determines the max uris that can be requested
@@ -175,7 +175,8 @@ class BlockchainProcessorBase(Processor):
                     print_log("missing HTTP response from server")
                     raise BaseException(j.error)
                 elif j.error['code'] == -1:
-                    print_log("JSON value is not a string as expected: %s" % j)
+                    print_log("JSON val"
+                              "e is not a string as expected: %s" % j)
                     raise BaseException(j.error)
                 else:
                     print_log(
@@ -453,6 +454,7 @@ class BlockchainProcessorBase(Processor):
             if not revert:
                 undo = self.storage.import_transaction(txid, tx, block_height, touched_addr)
                 undo_info[txid] = undo
+                undo_info[txid] = undo
 
                 undo = self.storage.import_claim_transaction(txid, tx, block_height)
                 claim_undo_info[txid] = undo
@@ -568,7 +570,11 @@ class BlockchainProcessorBase(Processor):
 
         while not self.shared.stopped():
             # are we done yet?
-            info = self.unetd('getinfo')
+            try:
+                info = self.unetd('getinfo')
+            except BaseException, e:
+                print e,'time out?'
+                continue
             #print info
             self.relayfee = info.get('relayfee')
             self.unetd_height = info.get('blocks')
@@ -600,9 +606,15 @@ class BlockchainProcessorBase(Processor):
                 self.storage.last_hash = next_block_hash
 
             else:
+                ## test
+                # blockhash = self.unetd('getblockhash', (self.storage.height - 1,))
+                # block = self.get_block(blockhash)
+                # print 'testhash:',blockhash
+                # n = self.import_block(block, blockhash, self.storage.height, revert=True)
 
                 # revert current block
                 block = self.get_block(self.storage.last_hash)
+
                 print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
                           self.storage.last_hash)
                 n = self.import_block(block, self.storage.last_hash, self.storage.height, revert=True)
@@ -613,6 +625,7 @@ class BlockchainProcessorBase(Processor):
 
                 # read previous header from disk
                 self.header = self.read_header(self.storage.height)
+                logger.info("header:",self.header)
                 self.storage.last_hash = self.hash_header(self.header)
 
                 if prev_root_hash:

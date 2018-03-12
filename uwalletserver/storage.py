@@ -39,6 +39,9 @@ class Node(object):
         k = "0x%0.64X" % self.k
         k = k[2:].decode('hex')
         assert len(k) == 32
+
+
+
         return k + self.s
 
     def has(self, c):
@@ -328,7 +331,7 @@ class Storage(object):
     def get_undo_info(self, height):
         s = self.db_undo.get("undo_info_%d" % height)
         if s is None:
-            print_log("no undo info for ", height)
+            print_log("storage no undo info for ", height)
             return None
         return pickle.loads(s)
 
@@ -470,6 +473,11 @@ class Storage(object):
     def get_path(self, target, new=False):
 
         x = self.db_utxo.get(target)
+        ##test
+        # if x is None:
+        #     raise BaseException('x is none')
+        # else:
+        #     raise BaseException('x not none',x)
         if not new and x is None:
             raise BaseException('key not in tree', target.encode('hex'))
 
