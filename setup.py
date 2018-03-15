@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from uwalletserver import __version__
 import os
 import sys
-
+from distutils.sysconfig import get_python_lib
 import shutil
 import platform
 current_place = get_python_lib()
