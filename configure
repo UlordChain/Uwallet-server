@@ -110,5 +110,4 @@ fi
 echo "Configuration written to $uwallet_config."
 echo "Please edit this file to finish the configuration."
 echo "If you have not done so, please run 'python setup.py install'"
->>>>>>> 217104beed8b7501cc1455fe18da345c0f7b25a7
 echo "Then, run 'uwallet-server' to start the daemon"
