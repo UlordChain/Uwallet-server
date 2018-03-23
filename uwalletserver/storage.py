@@ -22,7 +22,7 @@ from uwalletserver import deserialize
 
 # increase this when database needs to be updated
 global GENESIS_HASH
-GENESIS_HASH = '000009c278dda2285ff7d1595d919b2ae1f3728306409f50e374ea313391db8f'
+GENESIS_HASH = '001cd3928acb4d9785b7975a0ec948653cc5e4d233cdd5e6eedae11af015a34a'
 DB_VERSION = 5
 KEYLENGTH = 56  # 20 + 32 + 4
 
@@ -39,9 +39,6 @@ class Node(object):
         k = "0x%0.64X" % self.k
         k = k[2:].decode('hex')
         assert len(k) == 32
-
-
-
         return k + self.s
 
     def has(self, c):
@@ -474,10 +471,11 @@ class Storage(object):
 
         x = self.db_utxo.get(target)
         ##test
-        # if x is None:
-        #     raise BaseException('x is none')
-        # else:
-        #     raise BaseException('x not none',x)
+	#if x is None:
+        #    raise BaseException('x is none')
+        #else:
+        #    raise BaseException('x not none',x)
+        
         if not new and x is None:
             raise BaseException('key not in tree', target.encode('hex'))
 

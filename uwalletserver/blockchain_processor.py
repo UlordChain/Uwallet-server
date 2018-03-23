@@ -175,8 +175,7 @@ class BlockchainProcessorBase(Processor):
                     print_log("missing HTTP response from server")
                     raise BaseException(j.error)
                 elif j.error['code'] == -1:
-                    print_log("JSON val"
-                              "e is not a string as expected: %s" % j)
+                    print_log("JSON value is not a string as expected: %s" % j)
                     raise BaseException(j.error)
                 else:
                     print_log(
@@ -228,6 +227,7 @@ class BlockchainProcessorBase(Processor):
             while height < db_height:
                 height += 1
                 header = self.get_header(height) # headleght 140
+                print header
                 if height > 1:
                     if prev_hash != header.get('prev_block_hash'):
                         # The prev_hash block is orphaned, go back
@@ -251,8 +251,7 @@ class BlockchainProcessorBase(Processor):
         #print 'struceHeader:',header
         #print 'hexHeader:',header_to_string_verify(header)
         #print 'byteHeader:',header_to_string_verify(header).decode('hex')
-        #print 'hashValue:',rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
-        #return rev_hex(Hash(header_to_string(header).decode('hex')).encode('hex'))
+        #print 'hashValue:',rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
         return rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
         #return rev_hex(Hash(header_to_string_verify(header)).encode('hex')) 
 
@@ -454,7 +453,6 @@ class BlockchainProcessorBase(Processor):
             if not revert:
                 undo = self.storage.import_transaction(txid, tx, block_height, touched_addr)
                 undo_info[txid] = undo
-                undo_info[txid] = undo
 
                 undo = self.storage.import_claim_transaction(txid, tx, block_height)
                 claim_undo_info[txid] = undo
@@ -477,6 +475,7 @@ class BlockchainProcessorBase(Processor):
         self.storage.save_height(block_hash, block_height)
 
         for addr in touched_addr:
+
             self.invalidate_cache(addr)
 
         self.storage.update_hashes()
@@ -573,7 +572,7 @@ class BlockchainProcessorBase(Processor):
             try:
                 info = self.unetd('getinfo')
             except BaseException, e:
-                print e,'time out?'
+                print e,'getinfo time out?'
                 continue
             #print info
             self.relayfee = info.get('relayfee')
@@ -606,28 +605,18 @@ class BlockchainProcessorBase(Processor):
                 self.storage.last_hash = next_block_hash
 
             else:
-                ## test
-                # blockhash = self.unetd('getblockhash', (self.storage.height - 1,))
-                # block = self.get_block(blockhash)
-                # print 'testhash:',blockhash
-                # n = self.import_block(block, blockhash, self.storage.height, revert=True)
-
                 # revert current block
                 block = self.get_block(self.storage.last_hash)
-
-                print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
+		print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
                           self.storage.last_hash)
                 n = self.import_block(block, self.storage.last_hash, self.storage.height, revert=True)
                 self.pop_header()
                 self.flush_headers()
 
                 self.storage.height -= 1
-
                 # read previous header from disk
                 self.header = self.read_header(self.storage.height)
-                logger.info("header:",self.header)
                 self.storage.last_hash = self.hash_header(self.header)
-
                 if prev_root_hash:
                     assert prev_root_hash == self.storage.get_root_hash()
                     prev_root_hash = None

@@ -8,10 +8,10 @@ params = {
     'unet_main': {
         'pubkey_address': 0,
         'script_address': 5,
-        'pubkey_address_prefix': 130,#68
-        'script_address_prefix': 125, #204
-        'genesis_hash': '000000e32e974118821c865e0f79cd851edd96ccdf161de997ee85c438d0e7e3',
-        'default_rpc_port': 19889  #9998
+        'pubkey_address_prefix': 130,#68,
+        'script_address_prefix': 125,#63, #204
+        'genesis_hash': '000e0979b2a26db104fb4d8c2c8d572919a56662cecdcadc3d0583ac8d548e23',
+        'default_rpc_port': 19889#9889
     },
     'unet_test': {
         'pubkey_address': 0,

@@ -97,7 +97,7 @@ def Hash(x):
     if type(x) is unicode: x = x.encode('utf-8')
     return sha256(sha256(x))
     return r
- 
+
 
 def PoWHash(x):
     if type(x) is unicode: x = x.encode('utf-8')
@@ -142,7 +142,7 @@ def header_to_string_verify(res):
         + rev_hex(res.get('claim_trie_root')) \
         + int_to_hex(int(res.get('timestamp')), 4) \
         + int_to_hex(int(res.get('bits')), 4) \
-        + rev_hex(res.get('nonce'))
+        + rev_hex(res.get('nonce')) 
     #sol_len = len(res.get('solution')) / 2
     #str_len = ''
     #if sol_len < 253:
