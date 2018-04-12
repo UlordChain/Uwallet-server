@@ -93,16 +93,16 @@ fi
 chown $user $logfile
 
 
-unetd_user=$(read_config "unetd_user")
-if ! [ "$unetd_user" ]; then
-    read -p "rpcuser (from your unet.conf file): " -r
-    write_config "unetd_user" $REPLY
+unetd_user=$(read_config "ulordd_user")
+if ! [ "$ulordd_user" ]; then
+    read -p "rpcuser (from your ulord.conf file): " -r
+    write_config "ulordd_user" $REPLY
 fi
 
-unetd_password=$(read_config "unetd_password")
-if ! [ "$unetd_password" ]; then
-    read -p "rpcpassword (from your unet.conf file): " -r
-    write_config "unetd_password" $REPLY
+unetd_password=$(read_config "ulordd_password")
+if ! [ "$ulordd_password" ]; then
+    read -p "rpcpassword (from your ulord.conf file): " -r
+    write_config "ulordd_password" $REPLY
 fi
 
 
