@@ -8,7 +8,7 @@ Features：
 
 The server indexes UTXOs by address, in a Patricia tree structure described by Alan Reiner (see the 'ultimate blockchain compression' thread in the Bitcointalk forum)
 
-The server requires lbrycrdd, leveldb and plyvel
+The server requires, leveldb and plyvel
 
 The server code is open source. Anyone can run a server, removing single points of failure concerns.
 
