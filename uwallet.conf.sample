@@ -29,9 +29,9 @@ pruning_limit = 100
 #utxo_cache = 134217728
 #addr_cache = 16777216
 
-[unetd]
-unetd_host = localhost
-unetd_port = 9457
-# user and password from unet.conf
-unetd_user = lqp123456
-unetd_password = 
+[ulordd]
+ulordd_host = localhost
+ulordd_port = 
+# user and password from ulord.conf
+ulordd_user = 
+ulordd_password = 
