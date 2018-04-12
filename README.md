@@ -1,4 +1,4 @@
-# Uwallet-server for the uwallet client
+# Uwallet-server for the Uwallet client
 ## Language: Python
 ## Features：
 ### The server indexes UTXOs by address, in a Patricia tree structure described by Alan Reiner (see the 'ultimate blockchain compression' thread in the Bitcointalk forum)
