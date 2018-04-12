@@ -23,7 +23,6 @@ requires = [
     'unetschema',
 ]
 
-#'unetschema==0.0.1rc1'
 
 if sys.platform == "darwin":
     os.environ['CFLAGS'] = "-mmacosx-version-min=10.7 -stdlib=libc++ -I/usr/local/Cellar/leveldb/1.20/include"
@@ -37,10 +36,10 @@ setup(
     version=__version__,
     entry_points={'console_scripts': ['uwallet-server = uwalletserver.main:main']},
     install_requires=requires,
-    description="UC Electrum Server",
-    author="QiPing Liu",
-    author_email="798013715@qq.com",
+    description="Ulord  Lightweight Wallet Server",
+    author="JustinQP",
+    author_email="JustinQP007@gmail.com",
     license="GNU Affero GPLv3",
-    long_description="""Server for the Electrum Lightweight UC Wallet"""
+    long_description="""Server for the Electrum client. for the ulord Lightweight  Wallet """
 )
  
