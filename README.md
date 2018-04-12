@@ -18,7 +18,7 @@ Installation：
 
 To install and run a server, see INSTALL. For greater detail on the installation process, see HOWTO.md.
 
-To start and stop the server, use the 'electrum-server' script
+To start and stop the server, use the 'uwallet-server' script
 
 License：
 
