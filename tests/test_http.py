@@ -2,12 +2,6 @@
 #-*- coding:utf-8 -*-
 from urllib.request import urlretrieve
 
-def firstNonBlank(lines):
-    for  eachLine in lines:
-        if not eachLine.strip():
-            continue
-        else:
-            return eachLine
 
 def firstLast(webpage):
     f=open(webpage,encoding='utf-8')
