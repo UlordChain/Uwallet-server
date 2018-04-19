@@ -607,7 +607,7 @@ class BlockchainProcessorBase(Processor):
             else:
                 # revert current block
                 block = self.get_block(self.storage.last_hash)
-		print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
+                print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
                           self.storage.last_hash)
                 n = self.import_block(block, self.storage.last_hash, self.storage.height, revert=True)
                 self.pop_header()

@@ -22,7 +22,7 @@ from uwalletserver import deserialize
 
 # increase this when database needs to be updated
 global GENESIS_HASH
-GENESIS_HASH = '001cd3928acb4d9785b7975a0ec948653cc5e4d233cdd5e6eedae11af015a34a'
+GENESIS_HASH = '000f378be841f44e75346eebd931b13041f0dee561af6a80cfea6669c1bfec03'
 DB_VERSION = 5
 KEYLENGTH = 56  # 20 + 32 + 4
 

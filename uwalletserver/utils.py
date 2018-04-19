@@ -26,7 +26,7 @@ import os
 import threading
 import time
 #from cryptonite_hash import cpu_has_aes_in_supported, cryptolite_hash, cryptonite_hash
-from cryptohello_hash import cpu_has_aes_in_supported,cryptohello_hash
+from cryptohello_hash import cryptohello_hash
 from itertools import imap
 
 logger = logging.getLogger("uwalletserver")
@@ -61,7 +61,6 @@ SCRIPT_ADDRESS = 5
 PUBKEY_ADDRESS_PREFIX = 130  #85
 SCRIPT_ADDRESS_PREFIX = 125 #122
 
-HAS_AES_NI = cpu_has_aes_in_supported()
 
 def rev_hex(s):
     return s.decode('hex')[::-1].encode('hex')
@@ -90,7 +89,7 @@ def ripemd160(x):
 def Hash_Header(x):
     if type(x) is unicode: x = x.encode('utf-8')
     #r = cryptonite_hash(x, HAS_AES_NI)
-    r = cryptohello_hash(x, HAS_AES_NI)
+    r = cryptohello_hash(x, 1)
     return r
 
 def Hash(x):
