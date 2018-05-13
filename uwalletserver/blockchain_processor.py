@@ -21,7 +21,7 @@ from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
 HEADER_SIZE = 140 #1484
-BLOCKS_PER_CHUNK = 96 #576
+BLOCKS_PER_CHUNK = 576 #576
 
 # This determines the max uris that can be requested
 # in a single batch command
@@ -1172,3 +1172,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
         for uri in uris:
             results[uri] = self.cmd_claimtrie_get_value_for_uri(block_hash, uri)
         return results
+
+    @command('blockchain.address.maxheight')
+    def getMaxBlockHeight(self):
+        return self.storage.height

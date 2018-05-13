@@ -298,7 +298,7 @@ def start_server(config):
     chain_proc = BlockchainProcessor(config, shared)
     dispatcher.register('blockchain', chain_proc)
 
-    server_proc = ServerProcessor(config, shared)
+    server_proc = ServerProcessor(config, shared,chain_proc.storage)
     dispatcher.register('server', server_proc)
 
     # Create various transports we need
@@ -376,7 +376,6 @@ def main():
             continue
         except:
             stop_server()
-
 
 if __name__ == "__main__":
     main()

@@ -5,8 +5,9 @@ from uwalletserver import __version__ as VERSION
 
 
 class ServerProcessor(Processor):
-    def __init__(self, config, shared):
+    def __init__(self, config, shared,stroage):
         Processor.__init__(self)
+        self.storage = stroage
         self.daemon = True
         self.config = config
         self.shared = shared
@@ -23,7 +24,7 @@ class ServerProcessor(Processor):
         result = None
 
         if method == 'server.banner':
-            result = self.config.get('server', 'banner').replace('\\n', '\n')
+            result = self.storage.height
 
         elif method == 'server.donation_address':
             result = self.config.get('server', 'donation_address')
