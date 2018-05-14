@@ -381,12 +381,8 @@ class ClaimsStorage(Storage):
         try:
             
             #vlaim_value = base64.b64decode(claim.value)
-            #print vlaim_value
-            #logger.info('debug1:test where is error.')
-            decoded_claim = smart_decode(base64.b64decode(claim.value))
-            #logger.info('debug1:test where is error.')
+            decoded_claim = smart_decode(claim.value)
             parsed_uri = parse_unet_uri(claim.name)
-            #logger.info('debug2:test where is error.')
             if decoded_claim.has_signature:
                 cert_id = decoded_claim.certificate_id
             else:
