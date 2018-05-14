@@ -383,7 +383,7 @@ class ClaimsStorage(Storage):
             #vlaim_value = base64.b64decode(claim.value)
             #print vlaim_value
             #logger.info('debug1:test where is error.')
-            decoded_claim = smart_decode(base64.b64decode(claim.value))
+            decoded_claim = smart_decode(claim.value)
             #logger.info('debug1:test where is error.')
             parsed_uri = parse_unet_uri(claim.name)
             #logger.info('debug2:test where is error.')
