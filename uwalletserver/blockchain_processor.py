@@ -571,58 +571,57 @@ class BlockchainProcessorBase(Processor):
             # are we done yet?
             try:
                 info = self.unetd('getinfo')
+                self.relayfee = info.get('relayfee')
+                self.unetd_height = info.get('blocks')
+                unetd_block_hash = self.unetd('getblockhash', (self.unetd_height,))
+                if self.storage.last_hash == unetd_block_hash:
+                    self.up_to_date = True
+                    break
+
+                self.set_time()
+
+                revert = (random.randint(1, 100) == 1) if self.test_reorgs and self.storage.height > 100 else False
+
+                # not done..
+                self.up_to_date = False
+                try:
+                    next_block_hash = self.unetd('getblockhash', (self.storage.height + 1,))
+                except BaseException, e:
+                    revert = True
+
+                next_block = self.get_block(next_block_hash if not revert else self.storage.last_hash)
+
+                if (next_block.get('previousblockhash') == self.storage.last_hash) and not revert:
+
+                    prev_root_hash = self.storage.get_root_hash()
+
+                    n = self.import_block(next_block, next_block_hash, self.storage.height + 1)
+                    self.storage.height = self.storage.height + 1
+                    self.write_header(self.block2header(next_block), sync)
+                    self.storage.last_hash = next_block_hash
+
+                else:
+                    # revert current block
+                    block = self.get_block(self.storage.last_hash)
+                    print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
+                              self.storage.last_hash)
+                    n = self.import_block(block, self.storage.last_hash, self.storage.height, revert=True)
+                    self.pop_header()
+                    self.flush_headers()
+
+                    self.storage.height -= 1
+                    # read previous header from disk
+                    self.header = self.read_header(self.storage.height)
+                    self.storage.last_hash = self.hash_header(self.header)
+                    if prev_root_hash:
+                        assert prev_root_hash == self.storage.get_root_hash()
+                        prev_root_hash = None
+
+                # print time
+                self.print_time(n)
             except BaseException, e:
-                print e,'getinfo time out?'
+                print e,'time out?'
                 continue
-            #print info
-            self.relayfee = info.get('relayfee')
-            self.unetd_height = info.get('blocks')
-            unetd_block_hash = self.unetd('getblockhash', (self.unetd_height,))
-            if self.storage.last_hash == unetd_block_hash:
-                self.up_to_date = True
-                break
-
-            self.set_time()
-
-            revert = (random.randint(1, 100) == 1) if self.test_reorgs and self.storage.height > 100 else False
-
-            # not done..
-            self.up_to_date = False
-            try:
-                next_block_hash = self.unetd('getblockhash', (self.storage.height + 1,))
-            except BaseException, e:
-                revert = True
-
-            next_block = self.get_block(next_block_hash if not revert else self.storage.last_hash)
-
-            if (next_block.get('previousblockhash') == self.storage.last_hash) and not revert:
-
-                prev_root_hash = self.storage.get_root_hash()
-
-                n = self.import_block(next_block, next_block_hash, self.storage.height + 1)
-                self.storage.height = self.storage.height + 1
-                self.write_header(self.block2header(next_block), sync)
-                self.storage.last_hash = next_block_hash
-
-            else:
-                # revert current block
-                block = self.get_block(self.storage.last_hash)
-                print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
-                          self.storage.last_hash)
-                n = self.import_block(block, self.storage.last_hash, self.storage.height, revert=True)
-                self.pop_header()
-                self.flush_headers()
-
-                self.storage.height -= 1
-                # read previous header from disk
-                self.header = self.read_header(self.storage.height)
-                self.storage.last_hash = self.hash_header(self.header)
-                if prev_root_hash:
-                    assert prev_root_hash == self.storage.get_root_hash()
-                    prev_root_hash = None
-
-            # print time
-            self.print_time(n)
 
         self.header = self.block2header(self.unetd('getblock', (self.storage.last_hash,)))
         self.header['utxo_root'] = self.storage.get_root_hash().encode('hex')
