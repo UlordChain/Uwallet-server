@@ -24,7 +24,10 @@ class ServerProcessor(Processor):
         result = None
 
         if method == 'server.banner':
-            result = self.storage.height
+            try:
+                result = self.storage.height
+            except:
+                return 0
 
         elif method == 'server.donation_address':
             result = self.config.get('server', 'donation_address')
