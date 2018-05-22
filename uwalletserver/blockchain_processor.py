@@ -21,7 +21,7 @@ from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
 HEADER_SIZE = 140 #1484
-BLOCKS_PER_CHUNK = 576 #576
+BLOCKS_PER_CHUNK = 96 #576
 
 # This determines the max uris that can be requested
 # in a single batch command

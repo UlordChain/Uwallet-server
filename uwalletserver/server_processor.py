@@ -5,9 +5,9 @@ from uwalletserver import __version__ as VERSION
 
 
 class ServerProcessor(Processor):
-    def __init__(self, config, shared,stroage):
+    def __init__(self, config, shared,storage):
         Processor.__init__(self)
-        self.storage = stroage
+        self.storage = storage
         self.daemon = True
         self.config = config
         self.shared = shared

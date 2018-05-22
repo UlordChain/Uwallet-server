@@ -188,7 +188,8 @@ class RequestDispatcher(threading.Thread):
             return
         self.lastgc = now
         for session in self.sessions.values():
-            if session.name == "HTTP" and (now - session.time) > session.timeout:
+            if session.name == "HTTP" and (now - session.time) > session.timeout: 
+                print_log("time_out",session.timeout)
                 session.stop()
 
 

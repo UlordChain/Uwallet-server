@@ -22,7 +22,7 @@ from uwalletserver import deserialize
 
 # increase this when database needs to be updated
 global GENESIS_HASH
-GENESIS_HASH = '000f378be841f44e75346eebd931b13041f0dee561af6a80cfea6669c1bfec03'
+GENESIS_HASH = '0000079b37c3c290dc81e95bca28aa7df5636145ae35ebee86e10cc3cce96fb2'
 DB_VERSION = 5
 KEYLENGTH = 56  # 20 + 32 + 4
 
@@ -241,7 +241,7 @@ class Storage(object):
         print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
         print_log("Coins in database:", coins)
 
-    # convert between unet addresses and 20 bytes keys used for storage.
+    # convert between ulord addresses and 20 bytes keys used for storage.
     @staticmethod
     def address_to_key(addr):
         return bc_address_to_hash_160(addr)
@@ -281,7 +281,7 @@ class Storage(object):
     def listunspent(self, addr):
         key = self.address_to_key(addr)
         if key is None:
-            raise BaseException('Invalid unet address', addr)
+            raise BaseException('Invalid ulord address', addr)
         out = []
         with self.db_utxo.lock:
             for k, v in self.db_utxo.db.iterator(start=key):
@@ -470,12 +470,6 @@ class Storage(object):
     def get_path(self, target, new=False):
 
         x = self.db_utxo.get(target)
-        ##test
-	#if x is None:
-        #    raise BaseException('x is none')
-        #else:
-        #    raise BaseException('x not none',x)
-        
         if not new and x is None:
             raise BaseException('key not in tree', target.encode('hex'))
 
