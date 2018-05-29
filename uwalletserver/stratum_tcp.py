@@ -23,6 +23,7 @@ class TcpSession(Session):
     def __init__(self, dispatcher, connection, address, use_ssl, ssl_certfile, ssl_keyfile):
         Session.__init__(self, dispatcher)
         self.use_ssl = use_ssl
+
         self.raw_connection = connection
         if use_ssl and not SSL_IMPORTED:
             logger.warning("SSL is not available")
@@ -151,7 +152,7 @@ class TcpServer(threading.Thread):
         print_log(("SSL" if self.use_ssl else "TCP") + " server started on %s:%d" % (host, self.port))
 
         sock_fd = sock.fileno()
-        poller = select.poll()
+        poller = select.epoll()
         poller.register(sock)
 
         def stop_session(fd):
@@ -182,9 +183,7 @@ class TcpServer(threading.Thread):
             session.handshake = True
 
         redo = []
-
         while not self.shared.stopped():
-
             if self.shared.paused():
                 sessions = self.fd_to_session.keys()
                 if sessions:

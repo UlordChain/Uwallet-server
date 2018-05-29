@@ -21,8 +21,7 @@ from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
 HEADER_SIZE = 140 #1484
-BLOCKS_PER_CHUNK = 96 #576
-
+BLOCKS_PER_CHUNK = 20#20#96#576 #576
 # This determines the max uris that can be requested
 # in a single batch command
 MAX_BATCH_URIS = 500
@@ -40,7 +39,7 @@ def command(cmd_name):
     return _wrapper
 
 
-def unet_proof_has_winning_claim(proof):
+def ulord_proof_has_winning_claim(proof):
     return 'txhash' in proof and 'nOut' in proof
 
 
@@ -76,7 +75,8 @@ class BlockchainProcessorBase(Processor):
         self.mempool_lock = threading.Lock()
 
         self.address_queue = Queue()
-
+        self.header_cache ={}#qpccc
+        self.header_chache_lock = threading.Lock()
 
         try:
             self.test_reorgs = config.getboolean('leveldb', 'test_reorgs')  # simulate random blockchain reorgs
@@ -84,16 +84,16 @@ class BlockchainProcessorBase(Processor):
             self.test_reorgs = False
         self.storage = ClaimsStorage(config, shared, self.test_reorgs)
 
-        self.unetd_url = 'http://%s:%s@%s:%s/' % (
-            config.get('unetd', 'unetd_user'),
-            config.get('unetd', 'unetd_password'),
-            config.get('unetd', 'unetd_host'),
-            config.get('unetd', 'unetd_port'))
+        self.ulordd_url = 'http://%s:%s@%s:%s/' % (
+            config.get('ulordd', 'ulordd_user'),
+            config.get('ulordd', 'ulordd_password'),
+            config.get('ulordd', 'ulordd_host'),
+            config.get('ulordd', 'ulordd_port'))
 
         self.sent_height = 0
         self.sent_header = None
 
-        # catch_up headers  
+        # catch_up headers
         self.init_headers(self.storage.height)
         # start catch_up thread  #getbloolean is ?
         if config.getboolean('leveldb', 'profiler'):
@@ -104,8 +104,8 @@ class BlockchainProcessorBase(Processor):
             self.blockchain_thread = threading.Thread(target=self.do_catch_up)
         self.blockchain_thread.start()
 
-    def do_catch_up(self): 
-        self.header = self.block2header(self.unetd('getblock', (self.storage.last_hash,)))
+    def do_catch_up(self):
+        self.header = self.block2header(self.ulordd('getblock', (self.storage.last_hash,)))
         self.header['utxo_root'] = self.storage.get_root_hash().encode('hex')
         self.catch_up(sync=False)
         if not self.shared.stopped():
@@ -116,7 +116,7 @@ class BlockchainProcessorBase(Processor):
         while not self.shared.stopped():
             self.main_iteration()
             if self.shared.paused():
-                print_log("unetd is responding")
+                print_log("ulordd is responding")
                 self.shared.unpause()
             time.sleep(10)
 
@@ -139,7 +139,7 @@ class BlockchainProcessorBase(Processor):
                 self.storage.height, num_tx, delta, self.storage.get_root_hash().encode('hex'))
             msg += " (%.2ftx/s, %.2fs/block)" % (tx_per_second, seconds_per_block)
             run_blocks = self.storage.height - self.start_catchup_height
-            remaining_blocks = self.unetd_height - self.storage.height
+            remaining_blocks = self.ulordd_height - self.storage.height
             if run_blocks > 0 and remaining_blocks > 0:
                 remaining_minutes = remaining_blocks * seconds_per_block / 60
                 new_blocks = int(remaining_minutes / 10)  # number of new blocks expected during catchup
@@ -149,24 +149,24 @@ class BlockchainProcessorBase(Processor):
                 msg += " (eta %s, %d blocks)" % (rt, remaining_blocks)
             print_log(msg)
 
-    def wait_on_unetd(self):
+    def wait_on_ulordd(self):
         self.shared.pause()
         time.sleep(10)
         if self.shared.stopped():
             # this will end the thread
             raise BaseException()
 
-    def unetd(self, method, args=()):
+    def ulordd(self, method, args=()):
         while True:
             try:
-                r = AuthServiceProxy(self.unetd_url, method).__call__(*args)
+                r = AuthServiceProxy(self.ulordd_url, method).__call__(*args)
                 return r
             except JSONRPCException as j:
                 r = "no response"
                 print_log("Failed: %s%s" % (method, args))
                 if j.error['code'] == -28:
-                    print_log("unetd still warming up...")
-                    self.wait_on_unetd()
+                    print_log("ulordd still warming up...")
+                    self.wait_on_ulordd()
                     continue
                 elif j.error['code'] == -343:
                     print_log("missing JSON-RPC result")
@@ -199,9 +199,9 @@ class BlockchainProcessorBase(Processor):
 
     def get_header(self, height):
         #print 'heightttt',height
-        block_hash = self.unetd('getblockhash', (height,))
+        block_hash = self.ulordd('getblockhash', (height,))
         #print 'blockhashhhh',block_hash
-        b = self.unetd('getblock', (block_hash,))
+        b = self.ulordd('getblock', (block_hash,))
         #print 'getblockkk',b
         return self.block2header(b)
 
@@ -251,9 +251,10 @@ class BlockchainProcessorBase(Processor):
         #print 'struceHeader:',header
         #print 'hexHeader:',header_to_string_verify(header)
         #print 'byteHeader:',header_to_string_verify(header).decode('hex')
-        #print 'hashValue:',rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
+        #print 'hashValue:',rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
+        #return rev_hex(Hash(header_to_string(header).decode('hex')).encode('hex'))
         return rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
-        #return rev_hex(Hash(header_to_string_verify(header)).encode('hex')) 
+        #return rev_hex(Hash(header_to_string_verify(header)).encode('hex'))
 
     def read_header(self, block_height):
         if os.path.exists(self.headers_filename):
@@ -301,7 +302,9 @@ class BlockchainProcessorBase(Processor):
         # store them on disk; store the current chunk in memory
         with self.cache_lock:
             chunk = self.chunk_cache.get(i)
+            print 'getchunk:',i
             if not chunk:
+                print 'nochunk'
                 chunk = self.read_chunk(i)
                 if chunk:
                     self.chunk_cache[i] = chunk
@@ -310,7 +313,7 @@ class BlockchainProcessorBase(Processor):
 
     def get_mempool_transaction(self, txid):
         try:
-            raw_tx = self.unetd('getrawtransaction', (txid, 0))
+            raw_tx = self.ulordd('getrawtransaction', (txid, 0))
         except:
             print_log("Error looking up txid: %s" % txid)
             return None
@@ -379,8 +382,8 @@ class BlockchainProcessorBase(Processor):
         if cache_only:
             return -1
 
-        block_hash = self.unetd('getblockhash', (height,))
-        b = self.unetd('getblock', (block_hash,))
+        block_hash = self.ulordd('getblockhash', (height,))
+        b = self.ulordd('getblock', (block_hash,))
         tx_list = b.get('tx')
         tx_pos = tx_list.index(tx_hash)
 
@@ -475,11 +478,10 @@ class BlockchainProcessorBase(Processor):
         self.storage.save_height(block_hash, block_height)
 
         for addr in touched_addr:
-
             self.invalidate_cache(addr)
 
         self.storage.update_hashes()
-        # batch write modified nodes 
+        # batch write modified nodes
         self.storage.batch_write()
         # return length for monitoring
         return len(tx_hashes)
@@ -527,36 +529,36 @@ class BlockchainProcessorBase(Processor):
                 "txid": claim_txid,
                 "nout": claim_nout,
                 "amount":claim_amount,
-                "depth": self.unetd_height - claim_height,
+                "depth": self.ulordd_height - claim_height,
                 "height": claim_height,
                 "value": claim_value,
                 "claim_sequence": claim_sequence,
                 "address": claim_address
             }
-            unetd_results = self.unetd("getclaimsforname", (claim_name, ))
-            unetd_claim = None
-            if unetd_results:
-                for claim in unetd_results['claims']:
+            ulordd_results = self.ulordd("getclaimsforname", (claim_name, ))
+            ulordd_claim = None
+            if ulordd_results:
+                for claim in ulordd_results['claims']:
                     if claim['claimId'] == claim_id and claim['txid'] == claim_txid and claim['n'] == claim_nout:
-                        unetd_claim = claim
+                        ulordd_claim = claim
                         break
-                if unetd_claim:
+                if ulordd_claim:
                     result['supports'] = [[support['txid'], support['n'], support['nAmount']] for
-                                          support in unetd_claim['supports']]
-                    result['effective_amount'] = unetd_claim['nEffectiveAmount']
-                    result['valid_at_height'] = unetd_claim['nValidAtHeight']
+                                          support in ulordd_claim['supports']]
+                    result['effective_amount'] = ulordd_claim['nEffectiveAmount']
+                    result['valid_at_height'] = ulordd_claim['nValidAtHeight']
 
         return result
 
     def get_block(self, block_hash):
-        block = self.unetd('getblock', (block_hash,))
+        block = self.ulordd('getblock', (block_hash,))
 
         while True:
             try:
-                response = [self.unetd("getrawtransaction", (txid,)) for txid in block['tx']]
+                response = [self.ulordd("getrawtransaction", (txid,)) for txid in block['tx']]
             except:
-                logger.error("unetd error (getfullblock)")
-                self.wait_on_unetd()
+                logger.error("ulordd error (getfullblock)")
+                self.wait_on_ulordd()
                 continue
 
             block['tx'] = response
@@ -570,11 +572,12 @@ class BlockchainProcessorBase(Processor):
         while not self.shared.stopped():
             # are we done yet?
             try:
-                info = self.unetd('getinfo')
+                info = self.ulordd('getinfo')
+            #print info
                 self.relayfee = info.get('relayfee')
-                self.unetd_height = info.get('blocks')
-                unetd_block_hash = self.unetd('getblockhash', (self.unetd_height,))
-                if self.storage.last_hash == unetd_block_hash:
+                self.ulordd_height = info.get('blocks')
+                ulordd_block_hash = self.ulordd('getblockhash', (self.ulordd_height,))
+                if self.storage.last_hash == ulordd_block_hash:
                     self.up_to_date = True
                     break
 
@@ -582,10 +585,10 @@ class BlockchainProcessorBase(Processor):
 
                 revert = (random.randint(1, 100) == 1) if self.test_reorgs and self.storage.height > 100 else False
 
-                # not done..
+            # not done..
                 self.up_to_date = False
                 try:
-                    next_block_hash = self.unetd('getblockhash', (self.storage.height + 1,))
+                    next_block_hash = self.ulordd('getblockhash', (self.storage.height + 1,))
                 except BaseException, e:
                     revert = True
 
@@ -601,7 +604,8 @@ class BlockchainProcessorBase(Processor):
                     self.storage.last_hash = next_block_hash
 
                 else:
-                    # revert current block
+
+                # revert current block
                     block = self.get_block(self.storage.last_hash)
                     print_log("blockchain reorg", self.storage.height, block.get('previousblockhash'),
                               self.storage.last_hash)
@@ -610,20 +614,21 @@ class BlockchainProcessorBase(Processor):
                     self.flush_headers()
 
                     self.storage.height -= 1
-                    # read previous header from disk
+
+                # read previous header from disk
                     self.header = self.read_header(self.storage.height)
                     self.storage.last_hash = self.hash_header(self.header)
+
                     if prev_root_hash:
                         assert prev_root_hash == self.storage.get_root_hash()
                         prev_root_hash = None
 
-                # print time
+            # print time
                 self.print_time(n)
             except BaseException, e:
                 print e,'time out?'
                 continue
-
-        self.header = self.block2header(self.unetd('getblock', (self.storage.last_hash,)))
+        self.header = self.block2header(self.ulordd('getblock', (self.storage.last_hash,)))
         self.header['utxo_root'] = self.storage.get_root_hash().encode('hex')
 
         if self.shared.stopped():
@@ -632,7 +637,7 @@ class BlockchainProcessorBase(Processor):
 
     def memorypool_update(self):
         t0 = time.time()
-        mempool_hashes = set(self.unetd('getrawmempool'))
+        mempool_hashes = set(self.ulordd('getrawmempool'))
         touched_addresses = set()
 
         # get new transactions
@@ -902,8 +907,27 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
         if cache_only:
             result = -1
         else:
-            result = self.get_header(height)
+            with self.header_chache_lock:
+                result = self.header_cache.get(height)
+                if not result:
+                    by = self.read_header(height)
+                    if not by:
+                        result = self.get_header(height)
+                        self.header_cache[height] = result
+                    else:
+                        result = {
+                            "block_height": height-1,
+                            "version": by.get('version'),
+                            "prev_block_hash": by.get('prev_block_hash'),
+                            "merkle_root": by.get('merkle_root'),
+                            "claim_trie_root": by.get('claim_trie_root'),
+                            "timestamp": by.get('timestamp'),
+                            "bits": by.get('bits'),
+                            "nonce": by.get('nonce')
+                                                     }
+                        self.header_cache[height] = result
         return result
+
 
     @command('blockchain.block.get_chunk')
     def cmd_block_get_chunk(self, index, cache_only=False):
@@ -918,7 +942,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     def cmd_transaction_broadcast(self, raw_transaction):
         raw_transaction = str(raw_transaction)
         try:
-            txo = self.unetd('sendrawtransaction', (raw_transaction,))
+            txo = self.ulordd('sendrawtransaction', (raw_transaction,))
             print_log("sent tx:", txo)
             result = txo
         except BaseException, e:
@@ -944,12 +968,12 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     def cmd_transaction_get(self, tx_hash, height=None):
         # height argument does nothing here but is used in uwallet synchronizer
         tx_hash = str(tx_hash)
-        return self.unetd('getrawtransaction', (tx_hash, 0))
+        return self.ulordd('getrawtransaction', (tx_hash, 0))
 
     @command('blockchain.estimatefee')
     def cmd_estimate_fee(self, num):
         num = int(num)
-        return self.unetd('estimatefee', (num,))
+        return self.ulordd('estimatefee', (num,))
 
     @command('blockchain.relayfee')
     def cmd_relay_fee(self):
@@ -959,21 +983,21 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     def cmd_claimtrie_getvalue(self, name, block_hash=None):
         name = str(name)
         if block_hash:
-            proof = self.unetd('getnameproof', (name, block_hash))
+            proof = self.ulordd('getnameproof', (name, block_hash))
         else:
-            proof = self.unetd('getnameproof', (name,))
+            proof = self.ulordd('getnameproof', (name,))
 
         result = {'proof': proof}
-        if unet_proof_has_winning_claim(proof):
+        if ulord_proof_has_winning_claim(proof):
             txid, nout = str(proof['txhash']), int(proof['nOut'])
-            transaction_info = self.unetd('getrawtransaction', (proof['txhash'], 1))
+            transaction_info = self.ulordd('getrawtransaction', (proof['txhash'], 1))
             transaction = transaction_info['hex']
-            transaction_height = self.unetd_height - transaction_info['confirmations']
+            transaction_height = self.ulordd_height - transaction_info['confirmations']
             result['transaction'] = transaction
             claim_id = self.storage.get_claim_id_from_outpoint(txid, nout)
             result['height'] = transaction_height + 1
 
-        claim_info = self.unetd('getclaimsforname', (name,))
+        claim_info = self.ulordd('getclaimsforname', (name,))
         supports = []
         if len(claim_info['claims']) > 0:
             for claim in claim_info['claims']:
@@ -991,7 +1015,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     @command('blockchain.claimtrie.getclaimsintx')
     def cmd_claimtrie_getclaimsintx(self, txid):
         txid = str(txid)
-        result = self.unetd('getclaimsfortx', (txid,))
+        result = self.ulordd('getclaimsfortx', (txid,))
         if result:
             results_for_return = []
             for claim in result:
@@ -1003,7 +1027,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     @command('blockchain.claimtrie.getclaimsforname')
     def cmd_claimtrie_getclaimsforname(self, name):
         name = str(name)
-        result = self.unetd('getclaimsforname', (name,))
+        result = self.ulordd('getclaimsforname', (name,))
         if result:
             claims = []
             for claim in result['claims']:
@@ -1021,11 +1045,11 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     @command('blockchain.block.get_block')
     def cmd_get_block(self, block_hash):
         block_hash = str(block_hash)
-        return self.unetd('getblock', (block_hash,))
+        return self.ulordd('getblock', (block_hash,))
 
     @command('blockchain.claimtrie.get')
     def cmd_claimtrie_get(self):
-        return self.unetd('getclaimtrie')
+        return self.ulordd('getclaimtrie')
 
     @command('blockchain.claimtrie.getclaimbyid')
     def cmd_claimtrie_getclaimbyid(self, claim_id):
@@ -1053,7 +1077,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
     @command('blockchain.claimtrie.getclaimssignedby')
     def cmd_claimtrie_getclaimssignedby(self, name):
         name = str(name)
-        winning_claim = self.unetd('getvalueforname', (name,))
+        winning_claim = self.ulordd('getvalueforname', (name,))
         if winning_claim:
             certificate_id = str(winning_claim['claimId'])
             claims = self.storage.get_claims_signed_by(certificate_id)
@@ -1148,7 +1172,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
                     claim = {'resolution_type': WINNING, 'result': claim_info}
             if (claim and
                 # is not an unclaimed winning name
-                (claim['resolution_type'] != WINNING or unet_proof_has_winning_claim(claim['result']['proof']))):
+                (claim['resolution_type'] != WINNING or ulord_proof_has_winning_claim(claim['result']['proof']))):
                 try:
                     claim_val = self.get_claim_info(claim['result']['claim_id'])
                     decoded = smart_decode(claim_val['value'])

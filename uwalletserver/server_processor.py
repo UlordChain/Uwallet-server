@@ -2,7 +2,7 @@ import Queue
 
 from uwalletserver.processor import Processor
 from uwalletserver import __version__ as VERSION
-
+from uwalletserver.blockchain_processor import BLOCKS_PER_CHUNK
 
 class ServerProcessor(Processor):
     def __init__(self, config, shared,storage):
@@ -25,8 +25,9 @@ class ServerProcessor(Processor):
 
         if method == 'server.banner':
             try:
-                result = self.storage.height
-            except:
+                result = '2.7.2,' + BLOCKS_PER_CHUNK
+            except Exception,ex:
+                print ex
                 return 0
 
         elif method == 'server.donation_address':
