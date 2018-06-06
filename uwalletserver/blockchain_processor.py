@@ -93,7 +93,7 @@ class BlockchainProcessorBase(Processor):
         self.sent_height = 0
         self.sent_header = None
 
-        # catch_up headers
+        # catch_up headers  
         self.init_headers(self.storage.height)
         # start catch_up thread  #getbloolean is ?
         if config.getboolean('leveldb', 'profiler'):
@@ -104,7 +104,7 @@ class BlockchainProcessorBase(Processor):
             self.blockchain_thread = threading.Thread(target=self.do_catch_up)
         self.blockchain_thread.start()
 
-    def do_catch_up(self):
+    def do_catch_up(self): 
         self.header = self.block2header(self.ulordd('getblock', (self.storage.last_hash,)))
         self.header['utxo_root'] = self.storage.get_root_hash().encode('hex')
         self.catch_up(sync=False)
@@ -254,7 +254,7 @@ class BlockchainProcessorBase(Processor):
         #print 'hashValue:',rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
         #return rev_hex(Hash(header_to_string(header).decode('hex')).encode('hex'))
         return rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
-        #return rev_hex(Hash(header_to_string_verify(header)).encode('hex'))
+        #return rev_hex(Hash(header_to_string_verify(header)).encode('hex')) 
 
     def read_header(self, block_height):
         if os.path.exists(self.headers_filename):
@@ -481,7 +481,7 @@ class BlockchainProcessorBase(Processor):
             self.invalidate_cache(addr)
 
         self.storage.update_hashes()
-        # batch write modified nodes
+        # batch write modified nodes 
         self.storage.batch_write()
         # return length for monitoring
         return len(tx_hashes)
@@ -916,7 +916,7 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
                         self.header_cache[height] = result
                     else:
                         result = {
-                            "block_height": height-1,
+                            "block_height": height,
                             "version": by.get('version'),
                             "prev_block_hash": by.get('prev_block_hash'),
                             "merkle_root": by.get('merkle_root'),

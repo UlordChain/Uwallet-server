@@ -25,7 +25,7 @@ class ServerProcessor(Processor):
 
         if method == 'server.banner':
             try:
-                result = '2.7.2,' + BLOCKS_PER_CHUNK
+                result = "2.7.2,"+ str(BLOCKS_PER_CHUNK)
             except Exception,ex:
                 print ex
                 return 0

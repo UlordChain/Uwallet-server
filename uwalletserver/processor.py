@@ -203,7 +203,6 @@ class Session:
         self.address = ''
         self.name = ''
         self.version = 'unknown'
-
         self.protocol_version = 0.
         self.time = time.time()
         self.max_subscriptions = dispatcher.shared.config.getint('server', 'max_subscriptions')
@@ -274,5 +273,3 @@ class ResponseDispatcher(threading.Thread):
         while not self.shared.stopped():
             session, response = self.request_dispatcher.pop_response()
             session.send_response(response)
-
-import multiprocessing
