@@ -1,7 +1,5 @@
-*.pyc
-build/
-dist/
-uwallet_server.egg-info/
 .idea/
-
-
+build
+*.egg
+*.xml
+.idea/workspace.xml

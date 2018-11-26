@@ -11,7 +11,7 @@ params = {
         'pubkey_address_prefix': 68,#130,#68,
         'script_address_prefix': 63,#125,#63, 
         'genesis_hash': '0000079b37c3c290dc81e95bca28aa7df5636145ae35ebee86e10cc3cce96fb2',
-        'default_rpc_port': 9889#19889#9889
+        'default_rpc_port': 9889 #19889#9889
     },
     'ulord_test': {
         'pubkey_address': 0,

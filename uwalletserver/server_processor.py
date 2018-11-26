@@ -38,7 +38,6 @@ class ServerProcessor(Processor):
 
         elif method == 'server.version':
             result = VERSION
-
         else:
             raise BaseException("unknown method: %s" % repr(method))
 

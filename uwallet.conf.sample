@@ -1,6 +1,6 @@
 [server]
 # username for running the daemon
-username = uwallet
+username = 
 # hostname. set it to a FQDN in order to be reached from outside
 host = localhost
 # ports
@@ -15,11 +15,11 @@ banner_file = /etc/uwallet.banner
 #ssl_certfile = /path/to/uwallet-server.crt
 #ssl_keyfile = /path/to/uwallet-server.key
 logfile = /var/log/uwallet.log
-donation_address = ULORD_ADDRESS 
+donation_address = 
 
 [leveldb]
 # path to your database
-path = /path/to/leveldb
+path = 
 # for each address, history will be pruned if it is longer than this limit
 pruning_limit = 100
 
@@ -31,7 +31,7 @@ pruning_limit = 100
 
 [ulordd]
 ulordd_host = localhost
-ulordd_port = 19889
+ulordd_port = 
 # user and password from ulord.conf
-ulordd_user = username
-ulordd_password = userpassword
+ulordd_user = 
+ulordd_password = 

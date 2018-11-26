@@ -4,7 +4,6 @@ import time
 from uwalletserver.utils import print_log
 from uwalletserver.utils import logger
 
-
 class Shared:
     def __init__(self, config):
         self.lock = threading.Lock()
@@ -188,8 +187,7 @@ class RequestDispatcher(threading.Thread):
             return
         self.lastgc = now
         for session in self.sessions.values():
-            if session.name == "HTTP" and (now - session.time) > session.timeout: 
-                print_log("time_out",session.timeout)
+            if session.name == "HTTP" and (now - session.time) > session.timeout:
                 session.stop()
 
 
@@ -272,4 +270,5 @@ class ResponseDispatcher(threading.Thread):
     def run(self):
         while not self.shared.stopped():
             session, response = self.request_dispatcher.pop_response()
+            #gevent.spawn(session.send_response,response)
             session.send_response(response)

@@ -9,14 +9,14 @@ TLDR:
 # uwallet-server stop
 
 
-1. Install and run ulordd.
+1. Install and run unetd.
 ----------------------------
 
-You will need to run ulordd with the config option txindex=1. If you
-have not previously done so, you may need to reindex the ulord
+You will need to run unetd with the config option txindex=1. If you
+have not previously done so, you may need to reindex the unetd
 blockchain
 
-Note: you cannot use a pruning ulodd.  A full ulord node is
+Note: you cannot use a pruning unetd.  A full bitcoin node is
 required in order to know for each address if it has been
 used. Pruning occurs only at the level of the Electrum database.
 
@@ -30,7 +30,7 @@ You need to run the script as root:
 It will:
  * create the configuration file in /etc/uwallet.conf
  * create a user that will run the daemon
-
+ * optionally, download a fresh database from the Electrum Foundry.
 
 
 
@@ -73,8 +73,8 @@ your machine is rebooted.
 6. Troubleshooting:
 -------------------
 
- * if your server or ulordd is killed because is uses too much
-   memory, configure ulordd to limit the number of connections
+ * if your server or lbrycrdd is killed because is uses too much
+   memory, configure lbrycrdd to limit the number of connections
 
  * if you see "Too many open files" errors, you may need to increase
    your user's File Descriptors limit. For this, see

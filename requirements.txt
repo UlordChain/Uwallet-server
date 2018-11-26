@@ -2,4 +2,3 @@ plyvel==0.9
 jsonrpclib
 python-bitcoinrpc==0.1
 appdirs==1.4.3
-git+https://github.com/UlordChain/Uschema.git@#egg=unetschema

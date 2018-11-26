@@ -21,7 +21,7 @@ from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
 HEADER_SIZE = 140 #1484
-BLOCKS_PER_CHUNK = 20#20#96#576 #576
+BLOCKS_PER_CHUNK = 96#20#96#576 #576
 # This determines the max uris that can be requested
 # in a single batch command
 MAX_BATCH_URIS = 500
@@ -442,7 +442,7 @@ class BlockchainProcessorBase(Processor):
 
         # deserialize transactions
         tx_hashes, txdict = self.deserialize_block(block)
-
+        print 'blocktx_count:',len(tx_hashes),'----',tx_hashes
         # undo info
         if revert:
             undo_info = self.storage.get_undo_info(block_height)
@@ -571,12 +571,19 @@ class BlockchainProcessorBase(Processor):
 
         while not self.shared.stopped():
             # are we done yet?
-            try:
-                info = self.ulordd('getinfo')
+                try:
+                    info = self.ulordd('getinfo')
+                except BaseException, e:
+                    print_log('getinfo is timeout')
+                    continue
             #print info
                 self.relayfee = info.get('relayfee')
                 self.ulordd_height = info.get('blocks')
-                ulordd_block_hash = self.ulordd('getblockhash', (self.ulordd_height,))
+                try:
+                    ulordd_block_hash = self.ulordd('getblockhash', (self.ulordd_height,))
+                except BaseException, e:
+                    print_log('getblockhash is timeout')
+                    continue
                 if self.storage.last_hash == ulordd_block_hash:
                     self.up_to_date = True
                     break
@@ -625,9 +632,9 @@ class BlockchainProcessorBase(Processor):
 
             # print time
                 self.print_time(n)
-            except BaseException, e:
-                print e,'time out?'
-                continue
+            #except BaseException, e:
+            #    print e,'time out?'
+            #    continue
         self.header = self.block2header(self.ulordd('getblock', (self.storage.last_hash,)))
         self.header['utxo_root'] = self.storage.get_root_hash().encode('hex')
 

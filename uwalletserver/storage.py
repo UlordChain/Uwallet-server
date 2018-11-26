@@ -240,7 +240,6 @@ class Storage(object):
         print_log("Blockchain height", self.height)
         print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
         print_log("Coins in database:", coins)
-
     # convert between ulord addresses and 20 bytes keys used for storage.
     @staticmethod
     def address_to_key(addr):
@@ -330,10 +329,12 @@ class Storage(object):
         if s is None:
             print_log("storage no undo info for ", height)
             return None
-        return pickle.loads(s)
+        #return pickle.loads(s)
+        return eval(s)
 
     def write_undo_info(self, height, undo_info):
-        self.db_undo.put("undo_info_%d" % height, pickle.dumps(undo_info))
+        #self.db_undo.put("undo_info_%d" % height, pickle.dumps(undo_info))
+        self.db_undo.put("undo_info_%d" % height, repr(undo_info))
 
     @staticmethod
     def common_prefix(word1, word2):
@@ -611,6 +612,7 @@ class Storage(object):
             s = ''
         txo = (txid + int_to_hex(index, 4) + int_to_hex(height, 4)).decode('hex')
         s += txi + int_to_hex(in_height, 4).decode('hex') + txo
+        s = s[-80 * 100:]
         self.db_hist.put(addr, s)
 
     def revert_set_spent(self, addr, txi, undo):

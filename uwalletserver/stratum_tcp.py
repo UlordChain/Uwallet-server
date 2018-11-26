@@ -4,7 +4,6 @@ import socket
 import select
 import threading
 import time
-import os
 try:
     import ssl
     SSL_IMPORTED = True
@@ -163,7 +162,6 @@ class TcpServer(threading.Thread):
                 logger.error('unregister error:' + str(e))
             session = self.fd_to_session.pop(fd)
             # this will close the socket
-            print_log("session_stop","")
             session.stop()
 
         def check_do_handshake(session):
@@ -185,13 +183,12 @@ class TcpServer(threading.Thread):
         redo = []
 
         while not self.shared.stopped():
-            
+
             if self.shared.paused():
                 sessions = self.fd_to_session.keys()
                 if sessions:
                     logger.info("closing %d sessions" % len(sessions))
                 for fd in sessions:
-                    print_log("1")
                     stop_session(fd)
                 time.sleep(1)
                 continue
@@ -226,7 +223,6 @@ class TcpServer(threading.Thread):
 
                     # Collect garbage
                     if now - session.time > session.timeout:
-                        print_log("2")
                         stop_session(fd)
 
                 events = poller.poll(TIMEOUT)
@@ -257,7 +253,6 @@ class TcpServer(threading.Thread):
                     check_do_handshake(session)
                 except BaseException as e:
                     # logger.error('handshake failure:' + str(e) + ' ' + repr(session.address))
-                    print_log("3")
                     stop_session(fd)
                     continue
                 # anti DOS
@@ -279,12 +274,10 @@ class TcpServer(threading.Thread):
                     except socket.error as x:
                         if x.args[0] != 104:
                             logger.error('recv error: ' + repr(x) + ' %d' % fd)
-                        print_log("4")
                         stop_session(fd)
                         continue
                     except ValueError as e:
                         logger.error('recv error: ' + str(e) + ' %d' % fd)
-                        print_log("5")
                         stop_session(fd)
                         continue
                     if data:
@@ -293,13 +286,11 @@ class TcpServer(threading.Thread):
                             redo.append((fd, flag))
 
                     if not data:
-                        print_log("6")
                         stop_session(fd)
                         continue
 
                 elif flag & select.POLLHUP:
                     print_log('client hung up', session.address)
-                    print_log("7")
                     stop_session(fd)
 
                 elif flag & select.POLLOUT:
@@ -315,19 +306,17 @@ class TcpServer(threading.Thread):
                         sent = s.send(next_msg)
                     except socket.error as x:
                         logger.error("send error:" + str(x))
-                        print_log("8")
                         stop_session(fd)
                         continue
                     session.retry_msg = next_msg[sent:]
 
                 elif flag & select.POLLERR:
                     print_log('handling exceptional condition for', session.address)
-                    print_log("9")
                     stop_session(fd)
 
                 elif flag & select.POLLNVAL:
                     print_log('invalid request', session.address)
-                    print_log("10")
                     stop_session(fd)
 
         print_log('TCP thread terminating', self.shared.stopped())
+import datetime

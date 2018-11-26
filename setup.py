@@ -2,17 +2,17 @@ from setuptools import setup, find_packages
 from uwalletserver import __version__
 import os
 import sys
-from distutils.sysconfig import get_python_lib
+
 import shutil
 import platform
-current_place = get_python_lib()
+#current_place = get_python_lib()
 
-if platform.system().startswith('Win'):
-    shutil.copyfile(os.path.join('uwalletserver', 'cryptohello_hash.pyd'),
-                    os.path.join(current_place, 'cryptohello_hash.pyd'))
-else:
-    shutil.copyfile(os.path.join('uwalletserver', 'cryptohello_hash.so'),
-                    os.path.join(current_place, 'cryptohello_hash.so'))
+#if platform.system().startswith('Win'):
+#    shutil.copyfile(os.path.join('uwalletserver', 'cryptohello_hash.pyd'),
+#                    os.path.join(current_place, 'cryptohello_hash.pyd'))
+#else:
+#    shutil.copyfile(os.path.join('uwalletserver', 'cryptohello_hash.so'),
+#                    os.path.join(current_place, 'cryptohello_hash.so'))
 
 
 requires = [
@@ -23,6 +23,7 @@ requires = [
     'unetschema',
 ]
 
+#'unetschema==0.0.1rc1'
 
 if sys.platform == "darwin":
     os.environ['CFLAGS'] = "-mmacosx-version-min=10.7 -stdlib=libc++ -I/usr/local/Cellar/leveldb/1.20/include"
@@ -36,10 +37,10 @@ setup(
     version=__version__,
     entry_points={'console_scripts': ['uwallet-server = uwalletserver.main:main']},
     install_requires=requires,
-    description="Ulord  Lightweight Wallet Server",
-    author="JustinQP",
-    author_email="JustinQP007@gmail.com",
+    description="UC Electrum Server",
+    author="QiPing Liu",
+    author_email="798013715@qq.com",
     license="GNU Affero GPLv3",
-    long_description="""Server for the Electrum client. for the ulord Lightweight  Wallet """
+    long_description="""Server for the Electrum Lightweight UC Wallet"""
 )
  
