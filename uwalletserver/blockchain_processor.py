@@ -13,14 +13,15 @@ from uwalletserver import deserialize
 from uwalletserver.processor import Processor, print_log
 from uwalletserver.claims_storage import ClaimsStorage
 from uwalletserver.utils import logger, hash_decode, hash_encode, Hash, header_from_string,Hash_Header
-from uwalletserver.utils import header_to_string, ProfiledThread, rev_hex, int_to_hex, PoWHash
-from uwalletserver.utils import header_to_string_verify
+from uwalletserver.utils import header_to_string, ProfiledThread, rev_hex, int_to_hex, PoWHash,header_to_string_nopos,Hash_Header_nopos
 
 from unetschema.uri import parse_unet_uri
 from unetschema.error import URIParseError, DecodeError
 from unetschema.decode import smart_decode
 
-HEADER_SIZE = 140 #1484
+HEADER_SIZE = 180 #1484
+# POS_HEADER_SIZE = 180
+POS_BLOCK_HEIGHT = 314672
 BLOCKS_PER_CHUNK = 96#20#96#576 #576
 # This determines the max uris that can be requested
 # in a single batch command
@@ -92,6 +93,12 @@ class BlockchainProcessorBase(Processor):
 
         self.sent_height = 0
         self.sent_header = None
+
+        #self.storage.save_height('88ff4d0350a011f3259761f6f989626f9e6f803295281b2596ffad037585793e',314713)
+        #self.storage.last_hash='88ff4d0350a011f3259761f6f989626f9e6f803295281b2596ffad037585793e'
+        #self.storage.height=314713
+        #self.storage.close()
+
 
         # catch_up headers  
         self.init_headers(self.storage.height)
@@ -186,15 +193,16 @@ class BlockchainProcessorBase(Processor):
     @staticmethod
     def block2header(b):
         return {
-            "block_height": b.get('height'),
             "version": b.get('version'),
             "prev_block_hash": b.get('previousblockhash'),
             "merkle_root": b.get('merkleroot'),
             "claim_trie_root": b.get('nameclaimroot'),
             "timestamp": b.get('time'),
             "bits": int(b.get('bits'), 16),
-            "nonce": b.get('nonce')#,
-            #"solution": b.get('solution'),
+            "nonce": b.get('nonce'),
+            "block_height": b.get('height'),
+            "produceno": b.get('produceno'),
+            "votemasterno": b.get('votemasterno'),
         }
 
     def get_header(self, height):
@@ -248,13 +256,15 @@ class BlockchainProcessorBase(Processor):
 
     @staticmethod
     def hash_header(header):
-        #print 'struceHeader:',header
-        #print 'hexHeader:',header_to_string_verify(header)
-        #print 'byteHeader:',header_to_string_verify(header).decode('hex')
-        #print 'hashValue:',rev_hex(Hash(header_to_string_verify(header).decode('hex')).encode('hex'))
-        #return rev_hex(Hash(header_to_string(header).decode('hex')).encode('hex'))
-        return rev_hex(Hash_Header(header_to_string_verify(header).decode('hex')).encode('hex'))
-        #return rev_hex(Hash(header_to_string_verify(header)).encode('hex')) 
+        blockheight = header.get('block_height')
+        if blockheight > POS_BLOCK_HEIGHT:
+            hash = rev_hex(Hash_Header(header_to_string(header).decode('hex')).encode('hex'))
+            print "blockheight:",blockheight," hash:",hash
+            return hash
+        else:
+            hash = rev_hex(Hash_Header_nopos(header_to_string_nopos(header).decode('hex')).encode('hex'))
+            print "blockheight:", blockheight, " hash:", hash
+            return hash
 
     def read_header(self, block_height):
         if os.path.exists(self.headers_filename):
@@ -292,6 +302,8 @@ class BlockchainProcessorBase(Processor):
     def flush_headers(self):
         if not self.headers_data:
             return
+        #print self.storage.height
+        #if self.storage.height < 310439:
         with open(self.headers_filename, 'rb+') as f:
             f.seek(self.headers_offset * HEADER_SIZE)
             f.write(self.headers_data)
@@ -442,7 +454,7 @@ class BlockchainProcessorBase(Processor):
 
         # deserialize transactions
         tx_hashes, txdict = self.deserialize_block(block)
-        print 'blocktx_count:',len(tx_hashes),'----',tx_hashes
+        # print 'blocktx_count:',len(tx_hashes),'----',tx_hashes
         # undo info
         if revert:
             undo_info = self.storage.get_undo_info(block_height)
@@ -930,7 +942,9 @@ class BlockchainProcessor(BlockchainSubscriptionProcessor):
                             "claim_trie_root": by.get('claim_trie_root'),
                             "timestamp": by.get('timestamp'),
                             "bits": by.get('bits'),
-                            "nonce": by.get('nonce')
+                            "nonce": by.get('nonce'),
+                            "produceno": by.get('produceno'),
+                            "votemasterno": by.get('votemasterno')
                                                      }
                         self.header_cache[height] = result
         return result

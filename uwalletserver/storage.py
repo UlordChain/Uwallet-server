@@ -608,12 +608,14 @@ class Storage(object):
         self.db_addr.delete(txi)
         # add to history
         s = self.db_hist.get(addr)
+        self.db_hist.delete(addr)
         if s is None:
             s = ''
         txo = (txid + int_to_hex(index, 4) + int_to_hex(height, 4)).decode('hex')
         s += txi + int_to_hex(in_height, 4).decode('hex') + txo
-        s = s[-80 * 100:]
+        s = s[-80 * 10000:]
         self.db_hist.put(addr, s)
+        # self.db_hist.write()
 
     def revert_set_spent(self, addr, txi, undo):
         key = self.address_to_key(addr)

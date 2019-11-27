@@ -25,7 +25,6 @@ import logging.handlers
 import os
 import threading
 import time
-#from cryptonite_hash import cpu_has_aes_in_supported, cryptolite_hash, cryptonite_hash
 from cryptohello_hash import cryptohello_hash
 from itertools import imap
 
@@ -90,7 +89,11 @@ def ripemd160(x):
 
 def Hash_Header(x):
     if type(x) is unicode: x = x.encode('utf-8')
-    #r = cryptonite_hash(x, HAS_AES_NI)
+    r = sha256(x)
+    return r
+
+def Hash_Header_nopos(x):
+    if type(x) is unicode: x = x.encode('utf-8')
     r = cryptohello_hash(x, 1)
     return r
 
@@ -121,44 +124,29 @@ def header_to_string(res):
     pbh = res.get('prev_block_hash')
     if pbh is None:
         pbh = '0' * 64
-
     return int_to_hex(res.get('version'), 4) \
            + rev_hex(pbh) \
            + rev_hex(res.get('merkle_root')) \
            + rev_hex(res.get('claim_trie_root')) \
            + int_to_hex(int(res.get('timestamp')), 4) \
            + int_to_hex(int(res.get('bits')), 4) \
-           + rev_hex(res.get('nonce')) #\
-           #+ rev_hex(res.get('solution'))
+           + rev_hex(res.get('nonce')) \
+           + int_to_hex(int(res.get('block_height')), 4) \
+           + int_to_hex(int(res.get('produceno')), 4) \
+           + rev_hex(res.get('votemasterno'))
 
-#Fix block header loss validation issue -lqp
-def header_to_string_verify(res):
+def header_to_string_nopos(res):
     pbh = res.get('prev_block_hash')
     if pbh is None:
         pbh = '0' * 64
+    return int_to_hex(res.get('version'), 4) \
+           + rev_hex(pbh) \
+           + rev_hex(res.get('merkle_root')) \
+           + rev_hex(res.get('claim_trie_root')) \
+           + int_to_hex(int(res.get('timestamp')), 4) \
+           + int_to_hex(int(res.get('bits')), 4) \
+           + rev_hex(res.get('nonce'))
 
-    s = int_to_hex(res.get('version'), 4) \
-        + rev_hex(pbh) \
-        + rev_hex(res.get('merkle_root')) \
-        + rev_hex(res.get('claim_trie_root')) \
-        + int_to_hex(int(res.get('timestamp')), 4) \
-        + int_to_hex(int(res.get('bits')), 4) \
-        + rev_hex(res.get('nonce')) 
-    #sol_len = len(res.get('solution')) / 2
-    #str_len = ''
-    #if sol_len < 253:
-    #    str_len = int_to_hex(sol_len, 1)
-    #elif sol_len <= 0xfff:
-    #    str_len = int_to_hex(253, 1) + int_to_hex(sol_len, 2)
-    #elif sol_len <= 0xFFFFFFFF:
-    #    str_len = int_to_hex(254, 1) + int_to_hex(sol_len, 4)
-    #else:
-    #    str_len = int_to_hex(255, 1) + int_to_hex(sol_len, 8)
-    #s += str_len
-    #s += res.get('solution')
-    #print 'header2222====',s
-    return s
- 
 def hex_to_int(s):
     return int('0x' + s[::-1].encode('hex'), 16)
 
@@ -171,7 +159,10 @@ def header_from_string(s):
         'claim_trie_root': hash_encode(s[68:100]),
         'timestamp': hex_to_int(s[100:104]),
         'bits': hex_to_int(s[104:108]),
-        'nonce': hash_encode(s[108:140])#,
+        'nonce': hash_encode(s[108:140]),
+        'block_height': hex_to_int(s[140:144]),
+        'produceno': hex_to_int(s[144:148]),
+        'votemasterno': hash_encode(s[148:180])
         #'solution': hash_encode(s[140:1484]) #3 1487
     }
     #'nonce': hex_to_int(s[108:140]),
